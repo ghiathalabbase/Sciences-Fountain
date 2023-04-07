@@ -26,7 +26,7 @@ class Profile(models.Model):
         return self.name
 
 class Country(models.Model):
-    name = models.TextField(max_length=40)
+    name = models.CharField(max_length=40)
     def __str__(self) -> str:
         return self.name
 
