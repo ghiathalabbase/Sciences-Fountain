@@ -1,0 +1,24 @@
+
+  /* Home (Start) */
+  .heading {
+    border-left: solid 12px var(--header-hover-color);
+}
+.heading h2{
+    background-color: var(--header-back-color);
+    color: var(--header-font-color);
+}
+.top-stores .store .link {
+    color: var(--header-font-color);
+    background-color: #cf3622;
+    padding: 12px 30px;
+    transition: 0.3s;
+}
+.top-stores .store .link:hover {
+    background-color: var(--header-back-color);
+}
+.main-image {
+    background-image: url('../../../public/imgs/main-home3.jpg');
+    background-size: cover;
+    background-position: center;
+}
+  /* Home (End) */

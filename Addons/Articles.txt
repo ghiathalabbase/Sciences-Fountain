@@ -1,0 +1,67 @@
+Web Fonts : 
+-- https://web.dev/font-best-practices/
+-- https://www.editorx.com/shaping-design/article/best-fonts-for-websites
+-- https://www.editorx.com/shaping-design/article/web-typography-rules
+
+
+
+
+==== Advanced Django Learning Objectives ====
+
+* Course 1 : Building a Blog
+-----------------------------
+== Week 1 ==
+AdminSite :
+-- AdminSite objects : https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#adminsite-objects
+-- ModelAdmin options : https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#modeladmin-options
+
+ContentType :
+-- Methods on ContentType instances : https://docs.djangoproject.com/en/3.2/ref/contrib/contenttypes/#methods-on-contenttype-instances
+-- The contenttypes framework doc : https://docs.djangoproject.com/en/3.2/ref/contrib/contenttypes/
+
+Built-in Filter Reference : 
+-- https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#built-in-filter-reference
+
+Bleach, For User Input (sanitise the HTML output before being rendered) :
+-- https://bleach.readthedocs.io/en/latest/
+
+Advanced Custom Template Tags :
+-- https://docs.djangoproject.com/en/3.2/howto/custom-template-tags/#advanced-custom-template-tags
+
+Crispy FormHelper Doc :
+-- https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
+
+
+== Week 2 ==
+The Twelve-Factor App :
+-describes a way of designing web applications to make them easier to deploy, configure, debug and scale.
+-It’s not specific to any particular language.
+-They are more of a guideline, and depending on the size of your application, not all of the factors may be applicable to you.
+-- https://12factor.net/
+
+Django Configurations :
+-- https://django-configurations.readthedocs.io/en/stable/index.html
+
+Logging :
+-- Documentaion
+
+OWASP Top Ten : 
+-- https://owasp.org/www-project-top-ten/
+Security in Django :
+-- https://docs.djangoproject.com/en/3.2/topics/security/
+Django Passwords :
+-- https://docs.djangoproject.com/en/3.2/topics/auth/passwords/
+
+
+== Week 3 ==
+Django Caching System :
+-- https://docs.djangoproject.com/en/3.2/topics/cache/#using-a-custom-cache-backend
+
+The Fallacy of Premature Optimization :
+-- https://ubiquity.acm.org/article.cfm?id=1513451
+Django Debug Toolbar Doc :
+-- https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
+Logging to DjDT :
+-- https://stackoverflow.com/questions/2615042/how-do-i-use-logging-in-the-django-debug-toolbar/48291899#48291899
+Database Access Optimization :
+--https://docs.djangoproject.com/en/3.2/topics/db/optimization/
