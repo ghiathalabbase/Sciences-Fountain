@@ -21,7 +21,7 @@ function Header() {
   return (
     <header >
       <div className='container d-flex gap-4 align-items-center pt-2 pb-2'>
-        <NavLink to='' ><h1 className='logo m-0'>Logo</h1></NavLink>
+        <NavLink to='' ><h1 className='logo text-white m-0'>Logo</h1></NavLink>
         
         <nav className='d-flex align-items-center justify-content-between gap-3 flex-grow-1 flex-shrink-1'>
           <ul className='d-flex gap-3 flex-grow-1 flex-shrink-1 m-0 fs-6'>
