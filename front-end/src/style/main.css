@@ -3,12 +3,14 @@
 -- #303030 (dark)
 -- #f14833 (red)
 */
-
+* {
+  direction: rtl;
+}
 /* Global Styles (Start)*/
 :root {
-  --header-back-color: #303030;
+  --header-back-color: #3f5cbd;
   --header-font-color: #ededed;
-  --header-hover-color: #f14833;
+  --hover-back-color: #3031427d;
 }
 * {
   padding: 0;
@@ -18,6 +20,7 @@
 }
 ul {
   list-style: none;
+  padding: 0;
 }
 a {
   text-decoration: none !important;
@@ -39,15 +42,22 @@ body {
 header {
   background-color: var(--header-back-color);
 }
-header a {
+header nav  a {
+  color: var(--header-font-color);
+  padding: 8px 15px;
+  border-radius: 4px;
+}
+header nav ul a.active {
+  background-color: var(--hover-back-color);
   color: var(--header-font-color);
 }
-header a:hover {
-  color: var(--header-hover-color);
+header nav a:hover {
+  background-color: var(--hover-back-color);
+  color: var(--header-font-color);
   transition: 0.2s;
 }
 header nav img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
   /* Header (End) */

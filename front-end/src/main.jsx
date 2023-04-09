@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { About, Contact, Dashboard, Home, Login, Profile, Register } from './pages';
+import { Academies, About, Contact, Dashboard, Home, Login, Profile, Register } from './pages';
 // import './js/jquery-3.6.0.min.js'
 const router = createBrowserRouter([
   {
@@ -13,11 +13,15 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'contact',
+        path: 'academies/',
+        element: <Academies/>
+      },
+      {
+        path: 'contact/',
         element: <Contact/>
       },
       {
-        path: 'about',
+        path: 'about/',
         element: <About/>
       },
       {
