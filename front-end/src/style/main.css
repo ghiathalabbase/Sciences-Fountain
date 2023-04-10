@@ -1,12 +1,21 @@
-/* Colors Can Be Used
+/*
+Colors Can Be Used
 -- #2890a7 (light blue)
 -- #303030 (dark)
 -- #f14833 (red)
+
+Colors From Coolors Website :
+-- #606c38 (light green)
+-- #283618 (dark green)
+-- #fefae0 (sugar)
+-- #dda15e (light brown)
+-- #bc6c25 (honey)
 */
+
+/* Global Styles (Start) */
 * {
   direction: rtl;
 }
-/* Global Styles (Start)*/
 :root {
   --header-back-color: #1b1f29;
   --header-font-color: #ededed;
@@ -14,8 +23,6 @@
 }
 * {
   padding: 0;
-  margin: 0;
-  margin-bottom: 0 !important;
   box-sizing: border-box;
 }
 ul {
@@ -27,7 +34,8 @@ a {
   color: inherit;
 }
 body {
-  background-color: #f2f3f7;
+  background-color: #f2f8f8;
+  font-family: "Cairo";
 }
 .container {
   max-width: 100% !important;
@@ -36,7 +44,16 @@ body {
 .pointer {
   cursor: pointer;
 }
-/* Global Styles (End)*/
+.transition {
+  transition: 0.3s;
+}
+.styled-hr {
+  width: 85px;
+  height: 4px !important;
+  color: #dda15e;
+  opacity: 1;
+}
+/* Global Styles (End) */
 
 /* Header (Start) */
 header {

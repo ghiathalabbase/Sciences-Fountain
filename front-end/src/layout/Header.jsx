@@ -2,10 +2,11 @@ import { useState, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import avatar from '../assets/avatar.svg'
-import navbar from '../style/navbar.css'
+// import navbar from '../style/navbar.css'
 function Header() {
   const [profileImg, setProfileImg] = useState()
   let userContext = useContext(UserContext);
+
   useEffect(() => {
     try {
       if (!profileImg) {
@@ -15,11 +16,13 @@ function Header() {
       return
     }
   }, [userContext])
+
   function logout() {
     fetch('http://127.0.0.1:8000/auth/logout', { credentials: 'include' });
   }
+
   return (
-    <header >
+    <header className='container'>
       <div className='container d-flex gap-4 align-items-center pt-2 pb-2'>
         <NavLink to='' ><h1 className='logo text-white m-0'>Logo</h1></NavLink>
         
@@ -30,8 +33,8 @@ function Header() {
             <li><NavLink to='contact/' >تواصل معنا</NavLink></li>
             <li><NavLink to='about/' >عن المركز</NavLink></li>
           </ul>
-          {userContext.user.is_authenticated === true?<a onClick={logout} href="/">تسجيل الخروج</a>:null}
-          <NavLink to={userContext.user.is_authenticated === true?'profile/': 'login/'} className='profile p-0'><span></span><img src={profileImg? `http://127.0.0.1:8000${profileImg}`: avatar} alt="profile" className='rounded-pill'/></NavLink>
+          {userContext.user.is_authenticated === true ? <a onClick={logout} href="/">تسجيل الخروج</a> : null}
+          <NavLink to={userContext.user.is_authenticated === true ? 'profile/' : 'login/'} className='profile p-0'><span></span><img src={profileImg ? `http://127.0.0.1:8000${profileImg}` : avatar} alt="profile" className='rounded-pill'/></NavLink>
         </nav>
       </div>
     </header>

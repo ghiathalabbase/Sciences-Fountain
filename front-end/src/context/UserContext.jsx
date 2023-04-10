@@ -4,6 +4,7 @@ import {
   useState,
   useEffect
 } from "react";
+
 const UserContext = createContext();
 function UserContextProvider(props) {
   const [userContext, setUserContext] = useState({
@@ -19,9 +20,11 @@ function UserContextProvider(props) {
     },
     setUser
   });
+
   function setUser(data) {
     setUserContext(previousUserContext=>({...previousUserContext, user:data}))
   }
+
   console.log(userContext.user)
   useEffect(() => {
     async function getUserInfo() {
@@ -38,6 +41,7 @@ function UserContextProvider(props) {
     }
     getUserInfo()
   }, [])
+  
   return (
     <UserContext.Provider value={userContext}>
       {props.children}

@@ -1,0 +1,26 @@
+.landing .image-side{
+    background-image: url("../../assets/main-image.png");
+    background-size: cover;
+    background-position: center;
+    height: 550px;
+}
+.landing .content-side {
+    padding-right: 60px;
+}
+.landing-header {
+    color: #00999d;
+    font-size: 40px;
+}
+.landing .main-p {
+    font-weight: 700;
+    color: #212427;
+    width: 95%;
+}
+.landing .academies-link {
+    background-color: #d87c2b;
+    padding: 8px 25px;
+    border-radius: 5px;
+}
+.landing .academies-link:hover {
+    background-color: #bc6c25;
+}
