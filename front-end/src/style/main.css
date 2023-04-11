@@ -15,6 +15,7 @@ Colors From Coolors Website :
 /* Global Styles (Start) */
 * {
   direction: rtl;
+  transition: 0.3s;
 }
 :root {
   --header-back-color: #1b1f29;
@@ -41,6 +42,16 @@ body {
   max-width: 100% !important;
   padding: 0 60px ;
 }
+@media (max-width:770px) {
+  .container {
+    padding: 0 30px;
+  }
+}
+@media (max-width:540px) {
+  .container {
+    padding: 10px;
+  }
+}
 .pointer {
   cursor: pointer;
 }
@@ -59,7 +70,8 @@ body {
 header {
   background-color: var(--header-back-color);
 }
-header nav  a {
+header nav ul li a {
+  display: block;
   color: var(--header-font-color);
   padding: 8px 15px;
   border-radius: 4px;
@@ -71,10 +83,49 @@ header nav ul a.active {
 header nav a:hover {
   background-color: var(--hover-back-color);
   color: var(--header-font-color);
-  transition: 0.2s;
 }
-header nav img {
+header img {
   width: 40px;
   height: 40px;
 }
-  /* Header (End) */
+header .toggle {
+  width: 25px;
+  height: 100%;
+}
+header .toggle span{
+  transform-origin: right center;
+  height: 2px;
+  border-radius: 5px;
+}
+header .toggle span:not(:last-child){
+  margin-bottom: 6px;
+}
+header .toggle.clicked span:nth-child(2){
+  opacity: 0;
+}
+header .toggle.clicked span:first-child, header .toggle.clicked span:last-child{
+  width: 23px!important;
+}
+header .toggle.toggle.clicked span:first-child{
+  transform: rotateZ(-45deg);
+}
+header .toggle.toggle.clicked span:last-child{
+  transform: rotateZ(+45deg);
+}
+@media (max-width:767px) {
+  header .links {
+    position: absolute;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    top: 100%;
+    left: 0;
+    background-color: var(--header-back-color);
+  }
+  header .links.stretched {
+    height: 232px;
+    opacity: 1;
+  }
+} 
+/* Header (End)
