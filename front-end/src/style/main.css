@@ -95,7 +95,7 @@ header .toggle {
 header .toggle span{
   transform-origin: right center;
   height: 2px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 header .toggle span:not(:last-child){
   margin-bottom: 6px;
@@ -104,7 +104,10 @@ header .toggle.clicked span:nth-child(2){
   opacity: 0;
 }
 header .toggle.clicked span:first-child, header .toggle.clicked span:last-child{
-  width: 23px!important;
+  width: 28px!important;
+}
+header .toggle.clicked span:not(:last-child){
+  margin-bottom: 8px;
 }
 header .toggle.toggle.clicked span:first-child{
   transform: rotateZ(-45deg);
@@ -112,6 +115,7 @@ header .toggle.toggle.clicked span:first-child{
 header .toggle.toggle.clicked span:last-child{
   transform: rotateZ(+45deg);
 }
+
 @media (max-width:767px) {
   header .links {
     position: absolute;
@@ -128,4 +132,4 @@ header .toggle.toggle.clicked span:last-child{
     opacity: 1;
   }
 } 
-/* Header (End)
+/* Header (End) */

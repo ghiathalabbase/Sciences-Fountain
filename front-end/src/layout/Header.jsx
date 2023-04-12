@@ -51,8 +51,7 @@ function Header() {
           <li className='mb-1 mb-md-0'><NavLink to='academies/' >الأكاديميات</NavLink></li>
           <li className='mb-1 mb-md-0'><NavLink to='contact/' >تواصل معنا</NavLink></li>
           <li className='mb-1 mb-md-0'><NavLink to='about/' >عن المركز</NavLink></li>
-          {true && <li className='me-md-auto'><a onClick={logout} href="/">تسجيل الخروج</a></li>}
-          {/* {userContext.user.is_authenticated && <li className='ms-auto'><a onClick={logout} href="/">تسجيل الخروج</a></li>} */}
+          {userContext.user.is_authenticated && <li className='me-auto'><a onClick={logout} href="/">تسجيل الخروج</a></li>}
         </ul>
         <NavLink to={userContext.user.is_authenticated === true ? 'profile/' : 'login/'} className='profile p-0 me-auto'><img src={profileImg ? `http://127.0.0.1:8000${profileImg}` : avatar} alt="profile" className='rounded-pill'/></NavLink>
         <div className='toggle d-md-none pointer' onClick={toggleLinksWithBtn}>
