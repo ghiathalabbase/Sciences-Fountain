@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
-# from django.utils.decorators import method_decorator
-# from django.views.decorators.csrf import ensure_csrf_cookie
+from rest_framework.views import APIView
+from rest_framework.response import Response 
+
+from .models import Academy
+from .serializers import AcademySerializer
 # Create your views here.
 
 class CSRFView(View):
@@ -10,3 +13,9 @@ class CSRFView(View):
     def get(self, request):
         return HttpResponse()
     
+
+class Academies(APIView):
+    def get(self, request):
+        academies = Academy.objects.all()[0:10]
+        academies_serialized = AcademySerializer(instance=academies, many=True)
+        return Response(academies_serialized.data)
