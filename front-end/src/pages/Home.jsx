@@ -9,7 +9,7 @@ function Home() {
 
   return (
     <>
-      <div className="landing bg-white row align-items-center">
+      <div className="landing bg-white row align-items-center w-100 mx-0">
         <div className="content-side col">
           <h1 className='landing-header fw-bold mb-0'>مؤسسة البناء</h1>
           <hr className='styled-hr'/>
