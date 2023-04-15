@@ -106,11 +106,6 @@ class ProfileView(View):
             return JsonResponse({'is_authenticated': False})
             
 def index(request):
-    # from main.serializers import AcademySerializer
-    # academies=get_limited_rows(Academy, limit=3, offset=2)
-    # academies['rows'].select_related('creator')
-    # ser = AcademySerializer(academies['rows'], many=True)
-    # print(ser.data)
     get_limited_objects(Academy, limit=4, offset=1, unretrieved_fields=['dashboard_password', 'theme_color'], related_objects=['creator'])
     return render(request, 'index.html')
     
