@@ -13,17 +13,17 @@ Colors From Coolors Website :
 */
 
 /* Global Styles (Start) */
-* {
-  direction: rtl;
-}
 :root {
   --header-back-color: #1b1f29;
   --header-font-color: #ededed;
   --hover-back-color: #3031427d;
+  --primary-color: #00999d;
+  --secondary-color: #c49f55;
 }
 * {
   padding: 0;
   box-sizing: border-box;
+  direction: rtl;
 }
 ul {
   list-style: none;
@@ -39,7 +39,7 @@ body {
 }
 .container {
   max-width: 100% !important;
-  padding: 0 60px ;
+  padding: 0 80px ;
 }
 .pointer {
   cursor: pointer;
@@ -48,10 +48,34 @@ body {
   transition: 0.3s;
 }
 .styled-hr {
-  width: 85px;
-  height: 4px !important;
+  width: 45px;
+  height: 3px !important;
   color: #dda15e;
   opacity: 1;
+  margin: 10px auto;
+}
+.section-padding {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.primary-color {
+  color: var(--primary-color);
+}
+.secondary-color {
+  color: var(--secondary-color);
+}
+.primary-bgcolor {
+  background-color: var(--primary-color);
+}
+.secondary-bgcolor {
+  background-color: var(--secondary-color);
+}
+.section-header .header-text {
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+.row {
+  --bs-gutter-y: 1rem;
 }
 /* Global Styles (End) */
 
