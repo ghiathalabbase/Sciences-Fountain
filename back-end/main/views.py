@@ -7,7 +7,7 @@ from rest_framework import status
 from .models import Academy
 from .serializers import AcademySerializer
 # Create your views here.
-from collections.abc import Iterable
+from typing import Iterable
 from django.db.models.query import QuerySet
 from django.db.models import Q
 def get_limited_objects(

@@ -1,21 +1,21 @@
 /* Landing Section (Start) */
-.landing .image-side{
-    background-image: url("../../assets/main-image.png");
+.landing .landing-image{
+    background-image: url("../../assets/landing-image2.jpg");
     background-size: cover;
     background-position: center;
-    height: 550px;
+    height: calc(100vh - 56px);
 }
 .landing .content-side {
-    padding-right: 40px;
+    max-width: 80%;
 }
 .landing-header {
-    color: #00999d;
+    /* color: #00999d; */
     font-size: 40px;
 }
 .landing .main-p {
     font-weight: 700;
-    color: #212427;
-    width: 95%;
+    /* color: #212427; */
+    color: whitesmoke;
 }
 .landing .academies-link {
     background-color: #d87c2b;

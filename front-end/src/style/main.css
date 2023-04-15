@@ -59,8 +59,9 @@ body {
 }
 .styled-hr {
   width: 45px;
-  height: 3px !important;
-  color: #dda15e;
+  height: 2px !important;
+  color: transparent;
+  background-color: #dda15e;
   opacity: 1;
   margin: 10px auto;
 }
@@ -86,6 +87,15 @@ body {
 }
 .row {
   --bs-gutter-y: 1rem;
+}
+.overlay::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000070;
 }
 /* Global Styles (End) */
 
@@ -138,7 +148,6 @@ header .toggle.toggle.clicked span:first-child{
 header .toggle.toggle.clicked span:last-child{
   transform: rotateZ(+45deg);
 }
-
 @media (max-width:767px) {
   header .links {
     position: absolute;
