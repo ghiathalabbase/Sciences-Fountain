@@ -17,6 +17,14 @@ from json import loads, dumps
 TRY_EMAIL = 'ghiathalabbase@gmail.com'
 
 class RegisterView(View):
+    """
+    Receive a request has a ``json object`` contains two objects: one for creating ``user(email, password)``
+    and the second one for creating ``profile(name, birth_date, gender, country)``.
+
+    It pushes this object to the cache until the user verify its account via a link sent as an email.
+
+    It rejects the request if ``email`` is already found in the database or the cache.
+    """
     def post(self, request):
         register_info: dict = loads(request.body)
         print(register_info)
@@ -86,7 +94,8 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponse()
-    
+from main.views import get_limited_objects
+from main.models import Academy
 class ProfileView(View):
     def get(self, request):
         if request.user.is_authenticated:
@@ -96,3 +105,12 @@ class ProfileView(View):
         else:
             return JsonResponse({'is_authenticated': False})
             
+def index(request):
+    # from main.serializers import AcademySerializer
+    # academies=get_limited_rows(Academy, limit=3, offset=2)
+    # academies['rows'].select_related('creator')
+    # ser = AcademySerializer(academies['rows'], many=True)
+    # print(ser.data)
+    get_limited_objects(Academy, limit=4, offset=1, unretrieved_fields=['dashboard_password', 'theme_color'], related_objects=['creator'])
+    return render(request, 'index.html')
+    
