@@ -1,3 +1,4 @@
+/* Landing Section (Start) */
 .landing .image-side{
     background-image: url("../../assets/main-image.png");
     background-size: cover;
@@ -24,3 +25,7 @@
 .landing .academies-link:hover {
     background-color: #bc6c25;
 }
+/* Landing Section (End) */
+/* Academies Section (Start) */
+
+/* Academies Section (End) */
