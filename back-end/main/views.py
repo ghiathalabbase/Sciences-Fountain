@@ -10,6 +10,7 @@ from .serializers import AcademySerializer
 from typing import Iterable
 from django.db.models.query import QuerySet
 from django.db.models import Q
+
 def get_limited_objects(
         model,
         unretrieved_fields: Iterable[str] = None,
@@ -28,7 +29,7 @@ def get_limited_objects(
     """
 
     if not hasattr(model, 'objects'):
-        raise TypeError("%s model is and invalid model, it does not have an objects manager"% model.__name__)
+        raise TypeError("%s model is an invalid model, it does not have an objects manager"% model.__name__)
     
     objects = None
 
@@ -36,11 +37,11 @@ def get_limited_objects(
         if value is not None and value:
             try:
                 iter(value)
-                if isinstance(value, (str, dict)):
-                    raise TypeError("'unretrieved_fields' attribute can be any iterable except str and dict.")
-                
             except TypeError as error:
                 raise TypeError(f"'unretrieved_fields' must be an iterable, {error}")
+            
+            if isinstance(value, (str, dict)):
+                raise TypeError("'unretrieved_fields' attribute can be any iterable except str and dict.")
             
             return True
         return False
@@ -54,6 +55,7 @@ def get_limited_objects(
         objects = objects.defer(*unretrieved_fields)
 
     returned_dict = {'objects': [], 'exhausted': None}
+    offset -= 1
     if limit is None:
         objects = objects[offset:]
         returned_dict['objects'], returned_dict['exhausted'] = objects, True
@@ -77,8 +79,8 @@ class Academies(APIView):
         if not offset.isdigit():
             return Response("'offset' must be a digit", status=status.HTTP_406_NOT_ACCEPTABLE)
         offset = int(offset)
-        limit = 3
-        academies = get_limited_objects(Academy, limit=limit, offset=offset, unretrieved_fields=['dashboard_password'])
+        limit = 1
+        academies = get_limited_objects(Academy, limit=limit, offset=offset, unretrieved_fields='asdf')
         if len(academies['objects']):
             academies_serialized = AcademySerializer(instance=academies['objects'], many=True)
             academies['objects'] = academies_serialized.data

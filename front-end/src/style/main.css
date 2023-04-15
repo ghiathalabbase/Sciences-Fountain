@@ -81,12 +81,11 @@ body {
 .secondary-bgcolor {
   background-color: var(--secondary-color);
 }
-.section-header .header-text {
-  font-weight: 700;
-  font-size: 1.8rem;
-}
 .row {
   --bs-gutter-y: 1rem;
+}
+.fit-content {
+  width: fit-content;
 }
 .overlay::after {
   content: "";

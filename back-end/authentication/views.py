@@ -106,6 +106,13 @@ class ProfileView(View):
             return JsonResponse({'is_authenticated': False})
             
 def index(request):
-    get_limited_objects(Academy, limit=4, offset=1, unretrieved_fields=['dashboard_password', 'theme_color'], related_objects=['creator'])
+    # get_limited_objects(Academy, limit=4, offset=1, unretrieved_fields=['dashboard_password', 'theme_color'], related_objects=['creator'])
+    from django.core.paginator import Paginator
+    userlist = User.objects.all()
+    # print(userlist.count())
+    # print(len(userlist))
+    pg = Paginator(userlist, 2)
+    print(pg.num_pages)
+    print(pg.get_page(3).object_list)
     return render(request, 'index.html')
     
