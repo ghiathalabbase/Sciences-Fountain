@@ -2,6 +2,7 @@ import React from 'react'
 import {useState, useEffect} from 'react'
 import { useLocation } from 'react-router-dom'
 import "../style/pages/home.css"
+import academy_logo from "../images/academy-logo.jpg"
 import { Heading } from '../components/CustomComponents'
 function Home() {
   const location = useLocation()
@@ -23,13 +24,13 @@ function Home() {
           <Heading content={"الأكاديميات"} margin={"auto"}/>
           <div className="academies row text-center justify-content-center">
             <div className="col-lg-4 col-md-6 position-relative">
-              <img src="academy-logo.jpg" className='img-fluid' />
+              <img src={academy_logo} className='img-fluid' />
             </div>
             <div className="col-lg-4 col-md-6 position-relative">
-              <img src="academy-logo.jpg" className='img-fluid' />
+              <img src={academy_logo} className='img-fluid' />
             </div>
             <div className="col-lg-4 col-md-6 position-relative">
-              <img src="academy-logo.jpg" className='img-fluid' />
+              <img src={academy_logo} className='img-fluid' />
             </div>
           </div>
         </div>

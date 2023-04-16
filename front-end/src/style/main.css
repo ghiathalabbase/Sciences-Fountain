@@ -157,6 +157,10 @@ header .toggle.toggle.clicked span:last-child{
     top: 100%;
     left: 0;
     background-color: var(--header-back-color);
+    z-index: -2;
+  }
+  header .links:not(.stretched){
+    padding: 0!important;
   }
   header .links.stretched {
     height: 232px;

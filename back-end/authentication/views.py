@@ -94,8 +94,7 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponse()
-from main.views import get_limited_objects
-from main.models import Academy
+    
 class ProfileView(View):
     def get(self, request):
         if request.user.is_authenticated:
@@ -106,13 +105,10 @@ class ProfileView(View):
             return JsonResponse({'is_authenticated': False})
             
 def index(request):
-    # get_limited_objects(Academy, limit=4, offset=1, unretrieved_fields=['dashboard_password', 'theme_color'], related_objects=['creator'])
-    from django.core.paginator import Paginator
-    userlist = User.objects.all()
-    # print(userlist.count())
-    # print(len(userlist))
-    pg = Paginator(userlist, 2)
-    print(pg.num_pages)
-    print(pg.get_page(3).object_list)
+    from utils import OptimizedPaginator
+    userlist = User.objects.all().order_by('email')
+    pg = OptimizedPaginator(object_list=userlist, per_page=2, count=8)
+    # print(pg.count)
+    # print(pg.num_pages)
     return render(request, 'index.html')
     
