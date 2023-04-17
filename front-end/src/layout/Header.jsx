@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
-import avatar from '../assets/avatar.svg'
+import avatar from '../images/avatar.svg'
 function Header() {
   const [profileImg, setProfileImg] = useState()
   let userContext = useContext(UserContext);
