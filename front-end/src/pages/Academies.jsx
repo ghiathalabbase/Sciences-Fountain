@@ -25,7 +25,6 @@ function Academies() {
 
   }
   useEffect(() => {
-    
     getAcademies(pageNum);
   }, [])
   console.log(academies)
@@ -34,9 +33,6 @@ function Academies() {
       <ul ref={academies_containter}></ul>
       <div className="pages_nums d-flex gap-3">
         <button onClick={getPage} id="1">1</button>
-        <button onClick={getPage} id="2">2</button>
-        <button onClick={getPage} id="3">3</button>
-        <button onClick={getPage} id="4">4</button>
       </div>
     </>
   )
