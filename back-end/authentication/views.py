@@ -108,7 +108,5 @@ def index(request):
     from utils import OptimizedPaginator
     userlist = User.objects.all().order_by('email')
     pg = OptimizedPaginator(object_list=userlist, per_page=2, count=8)
-    # print(pg.count)
-    # print(pg.num_pages)
     return render(request, 'index.html')
     

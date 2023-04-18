@@ -25,7 +25,6 @@ function UserContextProvider(props) {
     setUserContext(previousUserContext=>({...previousUserContext, user:data}))
   }
 
-  console.log(userContext.user)
   useEffect(() => {
     async function getUserInfo() {
       try {
