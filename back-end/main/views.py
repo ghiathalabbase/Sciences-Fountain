@@ -16,7 +16,11 @@ class CSRFView(View):
 from utils import OptimizedPaginator
 class Academies(APIView):
     def get(self, request):
+        count = request.GET.get("count")
+        page = request.GET.get("page")
+        per_page = request.GET.get("per_page")
+        if page is None: page = 1
         academies = Academy.objects.all()
-        academies_paginator = OptimizedPaginator(object_list=academies, per_page=10)
-        academies_serialized = AcademySerializer(academies_paginator.get_page(1).object_list, many=True)
-        return Response({'num_pages':academies_paginator.num_pages, 'page_objects': academies_serialized.data})
+        academies_paginator = OptimizedPaginator(object_list=academies, per_page=per_page, count=count, model="academy")
+        academies_serialized = AcademySerializer(academies_paginator.get_page(page).object_list, many=True)
+        return Response({'count': academies_paginator.count, 'num_pages':academies_paginator.num_pages, 'page_objects': academies_serialized.data})
