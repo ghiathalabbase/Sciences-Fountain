@@ -13,18 +13,17 @@ Colors From Coolors Website :
 */
 
 /* Global Styles (Start) */
-* {
-  direction: rtl;
-  transition: 0.3s;
-}
 :root {
   --header-back-color: #1b1f29;
   --header-font-color: #ededed;
   --hover-back-color: #3031427d;
+  --primary-color: #00999d;
+  --secondary-color: #c49f55;
 }
 * {
   padding: 0;
   box-sizing: border-box;
+  direction: rtl;
 }
 ul {
   list-style: none;
@@ -40,7 +39,7 @@ body {
 }
 .container {
   max-width: 100% !important;
-  padding: 0 60px ;
+  padding: 0 80px ;
 }
 @media (max-width:770px) {
   .container {
@@ -59,10 +58,43 @@ body {
   transition: 0.3s;
 }
 .styled-hr {
-  width: 85px;
-  height: 4px !important;
-  color: #dda15e;
+  width: 45px;
+  height: 2px !important;
+  color: transparent;
+  background-color: #dda15e;
   opacity: 1;
+  margin: 10px auto;
+}
+.section-padding {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.primary-color {
+  color: var(--primary-color);
+}
+.secondary-color {
+  color: var(--secondary-color);
+}
+.primary-bgcolor {
+  background-color: var(--primary-color);
+}
+.secondary-bgcolor {
+  background-color: var(--secondary-color);
+}
+.row {
+  --bs-gutter-y: 1rem;
+}
+.fit-content {
+  width: fit-content;
+}
+.overlay::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000070;
 }
 /* Global Styles (End) */
 
@@ -95,7 +127,7 @@ header .toggle {
 header .toggle span{
   transform-origin: right center;
   height: 2px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 header .toggle span:not(:last-child){
   margin-bottom: 6px;
@@ -104,7 +136,10 @@ header .toggle.clicked span:nth-child(2){
   opacity: 0;
 }
 header .toggle.clicked span:first-child, header .toggle.clicked span:last-child{
-  width: 23px!important;
+  width: 28px!important;
+}
+header .toggle.clicked span:not(:last-child){
+  margin-bottom: 8px;
 }
 header .toggle.toggle.clicked span:first-child{
   transform: rotateZ(-45deg);
@@ -122,10 +157,14 @@ header .toggle.toggle.clicked span:last-child{
     top: 100%;
     left: 0;
     background-color: var(--header-back-color);
+    z-index: -2;
+  }
+  header .links:not(.stretched){
+    padding: 0!important;
   }
   header .links.stretched {
     height: 232px;
     opacity: 1;
   }
 } 
-/* Header (End)
+/* Header (End) */

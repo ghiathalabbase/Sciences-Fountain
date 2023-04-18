@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.core.cache import cache
+
 def check_integer(value):
     try:
         return int(value)
@@ -17,6 +18,7 @@ class OptimizedPaginator(Paginator):
             self.count = count
         else:
             model = object_list.model.__name__
+            """This will result in unpredictable results in case the cache key can contain something else combined with the model name."""
             if model in ALLOWED_CACHED_MODELS:
                 model_count = cache.get(model)
                 if model_count is not None :

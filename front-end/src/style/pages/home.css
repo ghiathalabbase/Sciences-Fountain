@@ -1,20 +1,21 @@
-.landing .image-side{
-    background-image: url("../../assets/main-image.png");
+/* Landing Section (Start) */
+.landing .landing-image{
+    background-image: url("../../images/landing-image2.jpg");
     background-size: cover;
     background-position: center;
-    height: 550px;
+    height: calc(100vh - 56px);
 }
 .landing .content-side {
-    padding-right: 60px;
+    max-width: 80%;
 }
 .landing-header {
-    color: #00999d;
+    /* color: #00999d; */
     font-size: 40px;
 }
 .landing .main-p {
     font-weight: 700;
-    color: #212427;
-    width: 95%;
+    /* color: #212427; */
+    color: whitesmoke;
 }
 .landing .academies-link {
     background-color: #d87c2b;
@@ -24,3 +25,7 @@
 .landing .academies-link:hover {
     background-color: #bc6c25;
 }
+/* Landing Section (End) */
+/* Academies Section (Start) */
+
+/* Academies Section (End) */
