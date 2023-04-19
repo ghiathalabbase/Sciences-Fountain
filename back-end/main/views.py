@@ -18,10 +18,12 @@ from utils import OptimizedPaginator, check_integer
 class Academies(APIView):
     def get(self, request):
         count = request.GET.get("count")
-        page = request.GET.get("page")
+        page_num = request.GET.get("page_num")
         per_page = request.GET.get("per_page")
-        if page is None: page = 1
+        if page_num is None: page_num = 1
         academies = Academy.objects.all()
-        academies_paginator = OptimizedPaginator(object_list=academies, per_page=per_page, count=count, model="academy")
-        academies_serialized = AcademySerializer(academies_paginator.get_page(page).object_list, many=True)
-        return Response({'count': academies_paginator.count, 'num_pages':academies_paginator.num_pages, 'page_objects': academies_serialized.data})
+        academies_paginator = OptimizedPaginator(object_list=academies, per_page=per_page, count=count)
+        academies_serialized = AcademySerializer(academies_paginator.get_page(page_num).object_list, many=True)
+        print(page_num)
+        pages_list = list(academies_paginator.get_elided_page_range(page_num))
+        return Response({'count': academies_paginator.count, 'num_pages':academies_paginator.num_pages, 'pages_list': pages_list, 'page_objects': academies_serialized.data})
