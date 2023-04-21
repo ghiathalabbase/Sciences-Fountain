@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { InvalidField } from "../components";
 import { CSRFSetter, cookieGetter } from "../utils";
+import { domainURL } from "../getEnv";
 
 function Register() {
 
@@ -167,7 +168,7 @@ function Register() {
           formData.user_profile[fieldName] = fields[fieldName].value
         }
       }
-      const response = await (await fetch('http://127.0.0.1:8000/auth/register', {
+      const response = await (await fetch(`${domainURL}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -4,6 +4,7 @@ import {
   useState,
   useEffect
 } from "react";
+import { domainURL } from "../getEnv";
 
 const UserContext = createContext();
 function UserContextProvider(props) {
@@ -28,7 +29,7 @@ function UserContextProvider(props) {
   useEffect(() => {
     async function getUserInfo() {
       try {
-        const data = await ( await fetch('http://127.0.0.1:8000/auth/profile', {method: 'GET',credentials: 'include'})).json();
+        const data = await ( await fetch(`${domainURL}/auth/profile`, {method: 'GET',credentials: 'include'})).json();
         if (data.is_authenticated) {
           setUser(data)
         } else {
@@ -47,32 +48,5 @@ function UserContextProvider(props) {
     </UserContext.Provider>
   )
 }
-// class MainContextComponent extends Component{
-//   constructor(props) {
-//     super(props)
-//     this.state = { userInfo: null, setUserInfo: this.setUserInfo}
-//   }
-//   setUserInfo = (data) => {
-//     this.setState({ ...this.state, userInfo: data })
-//   }
-//   componentDidMount() {
-//     const getUserInfo = async() => {
-//       const userInfo = await (
-//         await fetch('http://127.0.0.1:8000/profile/', {
-//           method: 'GET', credentials: 'include'
-//         })
-//       ).json();
-//       this.setUserInfo(userInfo)
-//     }
-//     getUserInfo()
-//   }
-//   render() {
-//     console.log(this.state.userInfo)
-//     return (
-//       <MainContext.Provider value={this.state}>
-//         {this.props.children}
-//       </MainContext.Provider>
-//     )
-//   }
-// }
+
 export {UserContext, UserContextProvider}

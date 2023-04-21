@@ -8,7 +8,7 @@ function Academies(props) {
   return(
     <>
     <div className="container">
-      <Paginator API_URL={"http://127.0.0.1:8000/academies/"} returnObjects={setRetrunedObjects}/>
+      <Paginator apiPath={"/academies/"} returnObjects={setRetrunedObjects}/>
       
     </div>
     </>

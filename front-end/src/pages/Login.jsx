@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { NavLink, useNavigate  } from "react-router-dom";
 import { CSRFSetter, cookieGetter } from '../utils';
 import { UserContext } from "../context/UserContext";
+import { domainURL } from "../getEnv";
 
 function Login() {
   const [wrong, setWrong] = useState(null)
@@ -20,7 +21,7 @@ function Login() {
     const form = document.getElementById('login-form')
     let credentials = new FormData(form)
     credentials = Object.fromEntries(credentials)
-    const response = await fetch('http://127.0.0.1:8000/auth/login', {
+    const response = await fetch(`${domainURL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',

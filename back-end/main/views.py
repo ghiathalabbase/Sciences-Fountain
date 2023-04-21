@@ -24,6 +24,5 @@ class Academies(APIView):
         academies = Academy.objects.all()
         academies_paginator = OptimizedPaginator(object_list=academies, per_page=per_page, count=count)
         academies_serialized = AcademySerializer(academies_paginator.get_page(page_num).object_list, many=True)
-        print(page_num)
-        pages_list = list(academies_paginator.get_elided_page_range(page_num, on_each_side=2))
+        pages_list = list(academies_paginator.get_elided_page_range(page_num, on_each_side=2, on_ends=1))
         return Response({'count': academies_paginator.count, 'num_pages':academies_paginator.num_pages, 'pages_list': pages_list, 'page_objects': academies_serialized.data})

@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import avatar from '../images/avatar.svg'
+import { domainURL } from '../getEnv';
+
 function Header() {
   const [profileImg, setProfileImg] = useState()
   let userContext = useContext(UserContext);
@@ -17,7 +19,7 @@ function Header() {
   }, [userContext])
 
   function logout() {
-    fetch('http://127.0.0.1:8000/auth/logout', { credentials: 'include' });
+    fetch(`${domainURL}/auth/logout`, { credentials: 'include' });
   }
 
   function toggleLinksWithBtn(event) {

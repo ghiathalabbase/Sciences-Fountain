@@ -1,3 +1,5 @@
+import { domainURL } from "./getEnv";
+
 function cookieGetter(cookieName) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== "") {
@@ -13,7 +15,7 @@ function cookieGetter(cookieName) {
     return cookieValue;
 }
 async function CSRFSetter() {
-    const response =  fetch('http://127.0.0.1:8000/get-csrftoken', {
+    const response =  fetch(`${domainURL}/get-csrftoken`, {
       method: 'GET',
         credentials: 'include'
     })

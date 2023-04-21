@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom'
 import "../style/pages/home.css"
 import academy_logo from "../images/academy-logo.jpg"
 import { Heading } from '../components/CustomComponents'
+// import { domainURL } from '../getEnv'
+
 function Home() {
   const location = useLocation()
   return (
