@@ -113,7 +113,7 @@ class PathInfo(models.Model):
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     level = models.ForeignKey(Level, on_delete=models.CASCADE)
     stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
-    students = models.ManyToManyField(User, through='Student')
+    students = models.ManyToManyField(User, through='Student', related_name="in_academies")
 
     def __str__(self) -> str:
         return self.stage.__str__()

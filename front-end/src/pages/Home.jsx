@@ -2,12 +2,39 @@ import React from 'react'
 import {useState, useEffect} from 'react'
 import { useLocation } from 'react-router-dom'
 import "../style/pages/home.css"
-import academy_logo from "../images/academy-logo.jpg"
 import { Heading } from '../components/CustomComponents'
-// import { domainURL } from '../getEnv'
+import { domainURL } from '../getEnv'
+import Slider from '../components/Slider'
+
 
 function Home() {
-  const location = useLocation()
+  const location = useLocation();
+  const [academies, setAcademies] = useState([])
+
+  async function getAcademies() {
+    let response = await fetch(`${domainURL}/academy-list/`);
+    let data = await response.json();
+    setAcademies(data.academies);
+  }
+
+  function renderAcademy(data) {
+    return (
+      <>
+      {
+      <div className="academy-item transition">
+        <a href={domainURL+`/academy/${data.slug}`+`/`}>
+          {<img src={domainURL+data.logo} className='img-fluid' alt={data.name}/>}
+        </a>
+      </div>
+      }
+      </>
+    )
+  }
+
+  useEffect(() => {
+    getAcademies();
+  }, [])
+  
   return (
     <>
       <div className="landing">
@@ -25,15 +52,10 @@ function Home() {
         <div className="container">
           <Heading content={"الأكاديميات"} margin={"auto"}/>
           <div className="academies row text-center justify-content-center">
-            <div className="col-lg-4 col-md-6 position-relative">
-              <img src={academy_logo} className='img-fluid' />
-            </div>
-            <div className="col-lg-4 col-md-6 position-relative">
-              <img src={academy_logo} className='img-fluid' />
-            </div>
-            <div className="col-lg-4 col-md-6 position-relative">
-              <img src={academy_logo} className='img-fluid' />
-            </div>
+            <Slider objects={academies} renderItem={renderAcademy}/>
+          </div>
+          <div className="more-link text-center">
+            <a href="/academies/" className='transition text-light fw-bold d-inline-block static-button my-4 mx-auto'>المزيد</a>
           </div>
         </div>
       </div>

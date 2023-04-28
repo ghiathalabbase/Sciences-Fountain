@@ -25,9 +25,7 @@ function Paginator({apiPath, returnObjects}) {
     }
 
     async function getObjects() {
-        const response = await fetch(`${domainURL}${apiPath}?page_num=${pageNum}&per_page=${perPage}
-        ${(!isNaN(parseInt(count.current)) && count.current > 0)? `&count=${count.current}`: ''}
-        `);
+        const response = await fetch(`${domainURL}${apiPath}?page_num=${pageNum}&per_page=${perPage}${(!isNaN(parseInt(count.current)) && count.current > 0)? `&count=${count.current}`: ''}`);
         const data = await response.json();
         returnObjects(data.page_objects);
         setPagesList({list: data.pages_list})
@@ -50,6 +48,19 @@ function Paginator({apiPath, returnObjects}) {
         }
     }
 
+    function changePage(event) {
+        if (event.target.classList.contains("page-next")){
+            if (pageNum == num_pages.current) 
+                return
+            setPageNum(pageNum + 1);
+        }
+        else{
+            if (pageNum == 1)
+                return
+            setPageNum(pageNum - 1);
+        }
+    }
+    
     useEffect(() => {
         getObjects();
     }, [pageNum, perPage])
@@ -58,6 +69,7 @@ function Paginator({apiPath, returnObjects}) {
         refreshSelectedNum();
     }, [pagesList])
 
+    let common_classes = "rounded-circle d-flex justify-content-center align-items-center transition";
     return (
         <>
         <div className="content d-flex flex-column gap-4">
@@ -67,18 +79,23 @@ function Paginator({apiPath, returnObjects}) {
                 </div>
                 <input className='form-control fit-content' type="number" name="per-page" id="per-page" max={1000} min={10} onBlur={getPerPage} />
             </div>
-            <div className="paginator-list d-flex gap-2 bg-white shadow rounded-pill fit-content">
-                {
-                    pagesList.list.map((page, index) => {
-                    let common_classes = "rounded-circle d-flex justify-content-center align-items-center m-auto transition"
-                    if (isNaN(parseInt(page))){
-                        return <div className={`pg-elt elipis ${common_classes}`} key={index} style={{cursor: "default"}}>...</div>
+            <div className="paginator-container d-flex gap-2 align-items-center">
+                {<div className={`page-arrow page-back bg-white p-4 pointer ${common_classes}`} onClick={changePage}><i className="fa-solid fa-angle-right page-back" onClick={changePage}></i></div>}
+
+                <div className="paginator-list d-flex gap-2 bg-white shadow rounded-pill fit-content">
+                    {
+                        pagesList.list.map((page, index) => {
+                        if (isNaN(parseInt(page))){
+                            return <div className={`pg-elt elipis m-auto ${common_classes}`} key={index} style={{cursor: "default"}}>...</div>
+                        }
+                        else{
+                            return <div className={`pg-elt page-num pointer m-auto ${common_classes}`} id={page} key={index} onClick={getPage}>{page}</div>
+                        }
+                    })
                     }
-                    else{
-                        return <div className={`pg-elt page-num pointer ${common_classes}`} id={page} key={index} onClick={getPage}>{page}</div>
-                    }
-                })
-                }
+                </div>
+
+                {<div className={`page-arrow page-next bg-white p-4 pointer ${common_classes}`} onClick={changePage}><i className="fa-solid fa-angle-left page-next" onClick={changePage}></i></div>}
             </div>
         </div>
         </>

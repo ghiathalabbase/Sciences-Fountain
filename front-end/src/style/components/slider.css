@@ -1,0 +1,16 @@
+.slider-container {
+    scroll-behavior: smooth;
+}
+.main-slider .controller {
+    top: 50%;
+    translate: 0 -50%;
+    background-color: #ffffff99;
+    width: 40px;
+    height: 40px;
+}
+.main-slider .fa-angle-right {
+    right: 20px;
+}
+.main-slider .fa-angle-left {
+    left: 20px;
+}

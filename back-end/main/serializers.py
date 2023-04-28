@@ -11,4 +11,4 @@ class AcademySerializer(serializers.ModelSerializer):
     dashboard_password = serializers.CharField(max_length=128, write_only=True)
     class Meta:
         model = Academy
-        exclude = ['admins']
+        exclude = ['admins', 'creator']

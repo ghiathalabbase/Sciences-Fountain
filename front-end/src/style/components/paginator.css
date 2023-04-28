@@ -1,10 +1,14 @@
-.paginator-list {
+.paginator-list, .page-arrow {
     padding: 5px 20px;
 }
-.pg-elt {
+.pg-elt, .page-arrow {
     width: 40px;
     height: 40px;
 }
 .page-num:not(.active):hover {
     color: #00999d;
+}
+.page-arrow:hover {
+    background-color: #00999d !important;
+    color: white;
 }
