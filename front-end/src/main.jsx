@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Academies, About, Contact, Dashboard, Home, Login, Profile, Register } from './pages';
+import Academy from './pages/Academy';
+
 // import './js/jquery-3.6.0.min.js'
 const router = createBrowserRouter([
   {
@@ -14,7 +16,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'academies/',
-        element: <Academies/>
+        element: <Academies/>,
+      },
+      {
+        path: 'academy/:academy_slug/',
+        element: <Academy/>
       },
       {
         path: 'contact/',

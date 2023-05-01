@@ -1,14 +1,15 @@
-import React from 'react'
-import {useState, useEffect} from 'react'
-import { useLocation } from 'react-router-dom'
-import "../style/pages/home.css"
-import { Heading } from '../components/CustomComponents'
-import { domainURL } from '../getEnv'
-import Slider from '../components/Slider'
+import React from 'react';
+import {useState, useEffect} from 'react';
+import { useLocation } from 'react-router-dom';
+import "../style/pages/home.css";
+import { Heading } from '../components/CustomComponents';
+import { domainURL } from '../getEnv';
+import Slider from '../components/Slider';
+import { NavLink } from 'react-router-dom';
 
 
 function Home() {
-  const location = useLocation();
+  // const location = useLocation();
   const [academies, setAcademies] = useState([])
 
   async function getAcademies() {
@@ -22,9 +23,9 @@ function Home() {
       <>
       {
       <div className="academy-item transition">
-        <a href={domainURL+`/academy/${data.slug}`+`/`}>
+        <NavLink to={`/academy/${data.slug}/`} state={data}>
           {<img src={domainURL+data.logo} className='img-fluid' alt={data.name}/>}
-        </a>
+        </NavLink>
       </div>
       }
       </>
@@ -43,7 +44,7 @@ function Home() {
               <h1 className='landing-header fw-bold m-0 text-light'>مؤسسة البناء</h1>
               <hr className='styled-hr mx-auto my-2' style={{width: "75px"}}/>
               <p className='main-p mb-4 lh-lg'>مركز يعتني بتسهيل العلوم وتقريبها لطلاب العلم وعموم الناس من خلال برامج ومعاهد ومنصات تتماشى مع العصري، مهتمين في ذلك بالتخصص والبناء العلمي القويم وفق منهج السلف، وتقديم الكفاءات والمتخصصين في كل علم، مع الاعتناء بتوظيف التقدم التقني والتنظيم الأكاديمي في خدمة العلم وتيسيره </p>
-              <a href="/academies/" className='transition academies-link text-light fw-bold d-inline-block'>الأكاديميات</a>
+              <NavLink to="/academies/" className='transition academies-link text-light fw-bold d-inline-block'>الأكاديميات</NavLink>
           </div>
         </div>
       </div>
@@ -55,7 +56,7 @@ function Home() {
             <Slider objects={academies} renderItem={renderAcademy}/>
           </div>
           <div className="more-link text-center">
-            <a href="/academies/" className='transition text-light fw-bold d-inline-block static-button my-4 mx-auto'>المزيد</a>
+            <NavLink to="/academies/" className='transition text-light fw-bold d-inline-block static-button my-4 mx-auto'>المزيد</NavLink>
           </div>
         </div>
       </div>

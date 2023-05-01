@@ -1,9 +1,20 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import "../style/components/slider.css"
 
 function Slider({ objects, renderItem }) {
     let slider = useRef();
     let noObjects = objects.length;
+
+    useEffect(() => {
+        const handleResize = () => {
+            slider.current.scrollLeft = 0;
+        }
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        }
+    }, [])
 
     function renderItems() {
         return objects.map((object, index) => {
@@ -21,10 +32,6 @@ function Slider({ objects, renderItem }) {
         else
             slider.current.scrollLeft += slide_width;
     }
-
-    window.addEventListener("resize", function(event) {
-        slider.current.scrollLeft = 0;
-    })
 
     let common_classes = "controller fa-solid position-absolute rounded-circle d-flex justify-content-center align-items-center pointer transition primary-hover-bgcolor white-hover-color";
     return (

@@ -43,13 +43,7 @@ class OptimizedPaginator(Paginator):
 
         # If the current page is within the first 3 pages, return the first 4 pages and an ellipsis,
         # followed by the last 4 pages
-        if number <= 3:
-            yield from range(1, 5)
-            yield self.ELLIPSIS
-            yield from range(self.num_pages - 3, self.num_pages + 1)
-        # If the current page is within the last 3 pages, return the first 4 pages, an ellipsis,
-        # and the last 4 pages
-        elif number > self.num_pages - 3:
+        if number <= 3 or number > self.num_pages - 3:
             yield from range(1, 5)
             yield self.ELLIPSIS
             yield from range(self.num_pages - 3, self.num_pages + 1)

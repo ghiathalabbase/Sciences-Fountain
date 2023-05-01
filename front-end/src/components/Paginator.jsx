@@ -3,7 +3,7 @@ import "../style/components/paginator.css"
 import { domainURL } from '../getEnv';
 
 
-function Paginator({apiPath, returnObjects}) {
+function Paginator({apiPath, returnObjects, canChangePerPage}) {
     // const [objects, setObjects] = useState({data: []});
     const [pageNum, setPageNum] = useState(1);
     const [perPage, setPerPage] = useState(100);
@@ -73,12 +73,19 @@ function Paginator({apiPath, returnObjects}) {
     return (
         <>
         <div className="content d-flex flex-column gap-4">
+            {canChangePerPage
+            ?
+            (
             <div className="per-page-content align-items-center d-flex gap-4">
                 <div className="text-label">
                     أدخل عدد العناصر في الصفحة الواحد :
                 </div>
                 <input className='form-control fit-content' type="number" name="per-page" id="per-page" max={1000} min={10} onBlur={getPerPage} />
             </div>
+            )
+            :
+            ("")
+            }
             <div className="paginator-container d-flex gap-2 align-items-center">
                 {<div className={`page-arrow page-back bg-white p-4 pointer ${common_classes}`} onClick={changePage}><i className="fa-solid fa-angle-right page-back" onClick={changePage}></i></div>}
 
@@ -101,4 +108,9 @@ function Paginator({apiPath, returnObjects}) {
         </>
     )
 }
+
+Paginator.defaultProps = {
+    canChangePerPage: 0
+}
+
 export default Paginator
