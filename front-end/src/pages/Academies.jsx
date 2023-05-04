@@ -13,7 +13,7 @@ function Academies(props) {
       <Paginator apiPath={"/academies/"} returnObjects={setRetrunedObjects}/>
       {
         academies.data.map((academy, index) => {
-          return <NavLink className={"secondary-hover-bgcolor d-block my-3"} key={academy.id} to={`/academy/${academy.slug}/`} state={academy}>{academy.name}</NavLink>
+          return <NavLink className={"secondary-hover-bgcolor d-block my-3"} key={academy.id} onClick={()=>window.location.state=academy} to={`/academy/${academy.slug}/`}>{academy.name}</NavLink>
         })
       }
     </div>

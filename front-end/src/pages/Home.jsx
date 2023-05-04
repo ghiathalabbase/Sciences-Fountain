@@ -11,7 +11,6 @@ import { NavLink } from 'react-router-dom';
 function Home() {
   // const location = useLocation();
   const [academies, setAcademies] = useState([])
-
   async function getAcademies() {
     let response = await fetch(`${domainURL}/academy-list/`);
     let data = await response.json();
@@ -51,7 +50,7 @@ function Home() {
 
       <div className="academies-section section-padding">
         <div className="container">
-          <Heading content={"الأكاديميات"} margin={"auto"}/>
+          <Heading content={"الأكاديميات"} margin={"auto"} colors={{contentColor:'#00999d', hrBackground: '#c49f55'}}/>
           <div className="academies row text-center justify-content-center">
             <Slider objects={academies} renderItem={renderAcademy}/>
           </div>

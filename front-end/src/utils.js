@@ -21,5 +21,5 @@ async function CSRFSetter() {
     })
 }
   
-  
+
 export {cookieGetter, CSRFSetter}

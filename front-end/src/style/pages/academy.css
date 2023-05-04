@@ -1,0 +1,51 @@
+.academy-header > span {
+    height: 2px;
+}
+
+.academy-landing {
+    height: calc(100dvh - 108px) ;
+}
+.academy-landing .content {
+    width: 50%;
+}
+.academy-landing .content h1 {
+    line-height: 3rem
+}
+
+@media (max-width:576px) {
+    .academy-landing .content {
+        width: 75%;
+    }
+    .academy-landing .content h1 {
+        font-size: 25px;
+    }
+}
+
+
+@media (max-width: 767px) {
+    .academy-header .links {
+        position: fixed;
+        display: block!important;
+        z-index: 2;
+        top: 106px;
+        background-color: #2a2727;
+        color: #fff;
+        height: calc(100% - 106px);
+        padding: 20px;
+        width: 50%;
+        right: -50%;
+    }
+    
+    .academy-header > .container {
+        justify-content: space-between!important;
+        gap: 0!important;
+    }
+}
+.features .feature:hover{
+    box-shadow: 5px 5px 10px #4d4949a1;
+    transform: translateY(-5px);
+}
+.feature {
+    padding: 14px;
+    border-radius: 20px;
+}

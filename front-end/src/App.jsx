@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react'
 import { UserContextProvider } from './context/UserContext';
-import { Outlet } from 'react-router-dom'
-import Header from './layout/Header'
+import { Outlet, useLoaderData } from 'react-router-dom'
+import Header from './layout/Header';
+import { domainURL } from "./getEnv";
 
+export function loader() {
+  const response = fetch(`${domainURL}/auth/profile`, { method: 'GET', credentials: 'include' });
+  return response;
+}
 function App() {
+  const loader = useLoaderData()
   return (
-    <UserContextProvider>
+    <UserContextProvider value={loader}>
       <Header />
         <Outlet/>
     </UserContextProvider>

@@ -1,12 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views import View
 from rest_framework.views import APIView
 from rest_framework.response import Response 
 from rest_framework import status
-from main.models import Academy, PathInfo, Student
-from .serializers import AcademySerializer
-from utils import OptimizedPaginator
+from .models import (
+    Academy, PathInfo, Student, Subject, Lesson,
+    AcademyDetail, AcademyFeature
+)
+from authentication.models import User
+from django.contrib.auth.models import AnonymousUser
+from .serializers import (
+    AcademySerializer, AcademyDetailSerializer,
+    PathInfoSerializer,BatchSerializer,
+    LessonSerializer, FeatureSerializer
+)
+from utils import OptimizedPaginator, check_integer
 # Create your views here.
 
 class CSRFView(View):
@@ -28,24 +37,6 @@ class Academies(APIView):
     def get(self, request):
         return get_paginator(request, Academy, AcademySerializer)
     
-class AcademyDetailView(APIView):
-    def get(self, request, slug):
-        academy = Academy.objects.filter(slug=slug)
-        academy_data = academy.first()
-        if academy_data is not None:
-            academy_id = academy_data.id
-            queryset = PathInfo.objects.filter(academy_id=academy_id, student__student_id=request.user.id).\
-            values("id", "academy_id", "batch_id","level_id", "stage_id", "student__student_id")
-            print(queryset.__len__())
-            if queryset.__len__() == 0:
-                print("no such student")
-            else:
-                print(queryset)
-
-        return Response()
-
-        # Voter.objects.annotate(value=F('vote__value'), year=F('vote__year')).values('name', 'value', 'year').filter(Q(year=2020) | Q(year__isnull=True))
-        # Voter.objects.annotate(votes2020=FilteredRelation('vote', condition=Q(vote__year=2020))).values('name', 'votes2020__value', 'votes2020__year')
 
 class AcademyListView(APIView):
     def get(self, request, format=None):
@@ -53,3 +44,86 @@ class AcademyListView(APIView):
         serialized_academies = AcademySerializer(academies, many=True)
 
         return JsonResponse({"academies": serialized_academies.data}, status=status.HTTP_200_OK)
+
+class AcademyView(APIView):
+    @staticmethod
+    def get_academy_detail(academy_id: int) -> dict:
+        if not isinstance(academy_id, int):
+            raise TypeError(f"'academy_id' must be type of 'int', not {type(academy_id)}")
+        serialized_academy_detail = AcademyDetailSerializer(instance=get_object_or_404(AcademyDetail, academy_id=academy_id))
+        print(serialized_academy_detail.data)
+        serialized_features = FeatureSerializer(instance=AcademyFeature.objects.filter(academy_detail_id = serialized_academy_detail.data['id']), many=True)
+        return {'academy_detail': serialized_academy_detail.data, 'features': serialized_features.data}
+    
+    @staticmethod
+    def get_operations_flow(user: User | AnonymousUser, academy_id: int) -> dict:
+        """
+        Takes a ``User`` object or ``AnonymousUser``, and  an academy ``id`` value.\n 
+        If the ``user`` is:\n
+            -1 not authenticated, ``Academy`` object and ``AcademyDetail`` object with its ``AcademyFeature`` objects data will be returned.\n
+            -2 authenticated, and related to one of ``PathInfo`` objects linked with ``Academy``,  a dictionary with academy, user paths
+            and lessons will returned, otherwise returned dictionary will be identical to the first status.
+        """
+
+        if not isinstance(user, (User, AnonymousUser)):
+            raise TypeError(f"'user' argument must be a 'User' object or an 'AnonymousUser' object , not {type(user)}")
+        
+        if not user.is_authenticated:
+            return AcademyView.get_academy_detail(academy_id)
+        
+        student_paths = PathInfo.objects.filter(academy_id=academy_id, student__student_id=user.id).select_related('batch', 'level', 'phase')
+        if student_paths: #if len(student_paths)
+            serialized_student_paths = PathInfoSerializer(student_paths, many=True)
+            last_path = serialized_student_paths.data[-1]
+            lessons = Lesson.objects.filter(subject__path_info_id=last_path['id']).select_related('subject')
+            serialized_lessons = LessonSerializer(lessons, many=True)
+            return {'student_paths': serialized_student_paths.data, 'lessons':serialized_lessons.data}
+        
+        return AcademyView.get_academy_detail(academy_id)
+    
+    def get(self, request, slug: str):
+        # """
+        # This ``get`` method expects the request link to have a ``slug`` value ``(which can only contain lowercase letters, dashes and numbers )`` 
+        # which referes to a specific academy, but if 
+        # if there is no academy with this slug, it will return ``404 Error``,
+        # """
+
+        id = check_integer(request.GET.get('id'))
+        if id:
+            return Response(self.get_operations_flow(request.user, id))
+        
+        academy = Academy.objects.filter(slug=slug)
+        if not academy : #if not len(academy):
+            return Response(f"Academy With '{slug}' Slug Not Found", status=status.HTTP_404_NOT_FOUND)
+        academy=academy[0]
+        returnedData = self.get_operations_flow(request.user, academy.id)
+        returnedData['academy'] = AcademySerializer(academy).data
+        return Response(returnedData)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        # if not request.user.is_authenticated:
+        #     return self.get_academy_detail(academy)
+        
+        # student_paths = PathInfo.objects.filter(academy_id=academy.id, student__student_id=request.user.id).select_related('batch', 'level', 'phase')
+        # if student_paths: #if len(student_paths)
+        #     serialized_academy = AcademySerializer(academy)
+        #     serialized_student_paths = PathInfoSerializer(student_paths, many=True)
+        #     last_path = serialized_student_paths.data[-1]
+        #     lessons = Lesson.objects.filter(subject__path_info_id=last_path['id']).select_related('subject')
+        #     serialized_lessons = LessonSerializer(lessons, many=True)
+        #     return Response({'academy': serialized_academy.data, 'student_paths': serialized_student_paths.data, 'lessons':serialized_lessons.data})
+        
+        # return self.get_academy_detail(academy)
+        
+        
+        
+        
+

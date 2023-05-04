@@ -24,6 +24,7 @@ Colors From Coolors Website :
   padding: 0;
   box-sizing: border-box;
   direction: rtl;
+  margin: 0;
 }
 ul {
   list-style: none;
@@ -39,17 +40,22 @@ body {
 }
 .container {
   max-width: 100% !important;
-  padding: 0 80px ;
+  padding: 0 5px;
+
 }
-@media (max-width:768px) {
+@media (min-width:576px) {
   .container {
-    padding: 0 30px;
+    padding: 0 20px;
   }
 }
-@media (max-width:576px) {
-  .container {
-    padding: 20px;
-  }
+@media (max-width:767px) {
+
+}
+@media (min-width: 992px) {
+  
+}
+@media (min-width: 1200px) {
+  
 }
 @media (min-width: 1400px) {
   .container {
@@ -66,7 +72,6 @@ body {
   width: 45px;
   height: 2px !important;
   color: transparent;
-  background-color: #dda15e;
   opacity: 1;
   margin: 10px auto;
 }
@@ -118,6 +123,13 @@ body {
 .static-button:hover {
     background-color: #bc6c25;
 }
+
+.section {
+  padding: 50px 0 ;
+}
+.gray-back {
+  background-color: #f0f2f5;
+}
 /* Global Styles (End) */
 
 /* Header (Start) */
@@ -142,31 +154,28 @@ header img {
   width: 40px;
   height: 40px;
 }
-header .toggle {
-  width: 25px;
-  height: 100%;
-}
-header .toggle span{
+
+.toggle span{
   transform-origin: right center;
   height: 2px;
   border-radius: 10px;
 }
-header .toggle span:not(:last-child){
+.toggle span:not(:last-child){
   margin-bottom: 6px;
 }
-header .toggle.clicked span:nth-child(2){
+.toggle.clicked span:nth-child(2){
   opacity: 0;
 }
-header .toggle.clicked span:first-child, header .toggle.clicked span:last-child{
+.toggle.clicked span:first-child, header .toggle.clicked span:last-child{
   width: 28px!important;
 }
-header .toggle.clicked span:not(:last-child){
+.toggle.clicked span:not(:last-child){
   margin-bottom: 8px;
 }
-header .toggle.toggle.clicked span:first-child{
+.toggle.toggle.clicked span:first-child{
   transform: rotateZ(-45deg);
 }
-header .toggle.toggle.clicked span:last-child{
+.toggle.toggle.clicked span:last-child{
   transform: rotateZ(+45deg);
 }
 @media (max-width:767px) {
@@ -188,5 +197,6 @@ header .toggle.toggle.clicked span:last-child{
     height: 232px;
     opacity: 1;
   }
+
 } 
 /* Header (End) */
