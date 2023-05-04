@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App, {loader as appLoader} from './App'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Academies, About, Contact, Dashboard, Home, Login, Profile, Register } from './pages';
-import Academy, {academyLoader, JoinUs} from './pages/Academy';
-import { AcademyDetail, StudyContent } from './pages/Academy';
+import Academy, {academyLoader,Learn, AcademyHome, JoinUs} from './pages/Academy';
 
 // import './js/jquery-3.6.0.min.js'
 const router = createBrowserRouter([
@@ -48,8 +47,8 @@ const router = createBrowserRouter([
         shouldRevalidate: () => false,
         children: [
           {
-            path: 'home/',
-            element: <AcademyDetail/>
+            index:true,
+            element: <AcademyHome/>
           },
           {
             path: 'joinus/',
@@ -57,7 +56,13 @@ const router = createBrowserRouter([
           },
           {
             path: 'learn/',
-            element: <StudyContent/>
+            element: <Learn />,
+            children: [
+              {
+                path: 'courses/',
+                element: 'courses'
+              }
+            ]
           }
         ]
       },

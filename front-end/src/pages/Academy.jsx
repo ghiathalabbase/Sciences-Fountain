@@ -45,12 +45,12 @@ function Academy(props) {
         rootPath = `/academy/${loader.academy.slug}/learn/`;
         links = [ new LinkObj('الرئيسية', 'learn/'), new LinkObj('المقررات', 'learn/courses/') ];
     } else if (loader.academy_detail) {
-        rootPath = `/academy/${loader.academy.slug}/home/`;
-        links = [new LinkObj('الرئيسية', `home/`), new LinkObj('انضم إلينا', 'joinus/')]
+        rootPath = `/academy/${loader.academy.slug}/`;
+        links = [new LinkObj('الرئيسية', ``), new LinkObj('انضم إلينا', 'joinus/')]
     }
     useEffect(() => {
         renderedFirst.current = true;
-        loader.student_paths? navigator('learn/'): navigator('home/')
+        loader.student_paths? navigator('learn/') : navigator('')
     }, [])
     return (
         <>
@@ -94,10 +94,13 @@ function Academy(props) {
 }
 
 
-function StudyContent() {
-    return <>study</>
+function Learn() {
+    return <>
+        study
+        <Outlet/>
+    </>
 }
-function AcademyDetail() {
+function AcademyHome() {
     const academyContext = useContext(AcademyContext)
     return (
         <>
@@ -146,7 +149,7 @@ function JoinUs() {
     return <div style={{height:10000}}>join us</div>
 }
 
-export { AcademyDetail, StudyContent, JoinUs } 
+export { Learn, AcademyHome, JoinUs } 
 export default Academy
 
 

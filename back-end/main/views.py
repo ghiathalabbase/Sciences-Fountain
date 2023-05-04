@@ -59,13 +59,13 @@ class AcademyView(APIView):
         """
         Takes ``academy_id`` argument which is an academy id ``academy_id`` in addition to ``self``.\n 
         If the `user is:\n
-            -1 not authenticated, ``Academy`` object and ``AcademyDetail`` object with its ``AcademyFeature`` objects data will be returned.\n
+            -1 not authenticated, ``Academy`` object with ``academy_id`` given  and its ``AcademyDetail`` object with its ``AcademyFeature`` objects data will be returned in a dictionary.\n
             -2 authenticated, and related to one of ``PathInfo`` objects linked with ``Academy``,  a dictionary with academy, user paths
             and lessons will returned, otherwise returned dictionary will be identical to the first status.
         """
 
-        if not isinstance(self.request.user, (User, AnonymousUser)):
-            raise TypeError(f"'user' argument must be a 'User' object or an 'AnonymousUser' object , not {type(self.request.user)}")
+        # if not isinstance(self.request.user, (User, AnonymousUser)):
+        #     raise TypeError(f"'user' argument must be a 'User' object or an 'AnonymousUser' object , not {type(self.request.user)}")
         
         if not self.request.user.is_authenticated:
             return AcademyView.get_academy_detail(academy_id)
