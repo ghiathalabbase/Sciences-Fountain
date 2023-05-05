@@ -4,7 +4,7 @@ import App, {loader as appLoader} from './App'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Academies, About, Contact, Dashboard, Home, Login, Profile, Register } from './pages';
 import Academy, {academyLoader,Learn, AcademyHome, JoinUs} from './pages/Academy';
-
+import Error from './components/Error';
 // import './js/jquery-3.6.0.min.js'
 const router = createBrowserRouter([
   {
@@ -43,6 +43,7 @@ const router = createBrowserRouter([
       {
         path: 'academy/:academy_slug/',
         element: <Academy />,
+        errorElement: <Error/>,
         loader: academyLoader,
         shouldRevalidate: () => false,
         children: [

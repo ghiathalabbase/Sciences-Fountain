@@ -1,10 +1,10 @@
-import React, { createContext, useEffect, useContext, useRef } from "react"
+import React, { createContext, useEffect, useContext, useRef, memo, useState } from "react"
 import { NavLink, Outlet, useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { domainURL } from '../getEnv'
 import '../style/pages/academy.css'
 import { ToggleButton, Heading } from "../components/CustomComponents";
 
-class LinkObj{
+class LinkContent{
     constructor(text, url) {
         this.text = text;
         this.url = url
@@ -35,19 +35,11 @@ const AcademyContext = createContext()
 
 
 function Academy(props) {
+    const [first, setfirst] = useState('second')
     const loader = useLoaderData();
     const navigator = useNavigate()
-    const location = useLocation();
     const renderedFirst = useRef(false);
-    let rootPath;
-    let links = [];
-    if (loader.student_paths) {
-        rootPath = `/academy/${loader.academy.slug}/learn/`;
-        links = [ new LinkObj('الرئيسية', 'learn/'), new LinkObj('المقررات', 'learn/courses/') ];
-    } else if (loader.academy_detail) {
-        rootPath = `/academy/${loader.academy.slug}/`;
-        links = [new LinkObj('الرئيسية', ``), new LinkObj('انضم إلينا', 'joinus/')]
-    }
+    
     useEffect(() => {
         renderedFirst.current = true;
         loader.student_paths? navigator('learn/') : navigator('')
@@ -55,37 +47,9 @@ function Academy(props) {
     return (
         <>
             <div className="academy position-relative">
-                <nav className="academy-header w-100">
-                    <div className="container d-flex align-items-center gap-5">
-                        <NavLink
-                            to={rootPath}
-                            className={'logo d-flex align-items-center gap-2 ms-3'}
-                        >
-                            <img src={`${domainURL}${loader.academy.logo}`} alt={loader.academy.name} style={{ width: '120px' }} />
-                            <h6 className="mb-0">{loader.academy.name}</h6>
-                        </NavLink>
-
-                        <ul className="links d-flex align-items-center justify-content-evenly flex-grow-1 flex-shrink-1 m-0">
-                            {links.map((link, index) => (
-                                <li key={index}>
-                                    <NavLink
-                                        to={link.url}
-                                        className='d-block rounded-pill px-3 py-1 transition'
-                                        style={({ isActive }) => (
-                                            isActive ? { backgroundColor: loader.academy.theme_color, color: '#fff' } : null)}
-                                    >
-                                        {link.text}
-                                    </NavLink>
-                                </li>
-                            ))}
-                        </ul>
-                        <div>
-                            <ToggleButton func={()=>console.log('asdf')} background={loader.academy.theme_color} height={'35px'} width={'35px'} spansWidth={'60%'}/>
-                        </div>
-                    </div>
-                    <span className="d-block w-100" style={{backgroundColor: loader.academy.theme_color}}></span>
-                </nav>
+                
                 <AcademyContext.Provider value={loader}>
+                    <MemoizedAcademyHeader/>
                     {renderedFirst.current? <Outlet/> : null}
                 </AcademyContext.Provider>
             </div>
@@ -93,7 +57,52 @@ function Academy(props) {
     )
 }
 
+function AcademyHeader() {
+    const academyContext = useContext(AcademyContext);
+    let mainPath;
+    let links = [];
+    if (academyContext.student_paths) {
+        mainPath = `/academy/${academyContext.academy.slug}/learn/`;
+        links = [ new LinkContent('الرئيسية', 'learn/'), new LinkContent('المقررات', 'learn/courses/') ];
+    } else if (academyContext.academy_detail) {
+        mainPath = `/academy/${academyContext.academy.slug}/`;
+        links = [new LinkContent('الرئيسية', ''), new LinkContent('انضم إلينا', 'joinus/')]
+    }
+    return (
+        <nav className="academy-header w-100">
+            <div className="container d-flex align-items-center gap-5">
+                <NavLink
+                    to={mainPath}
+                    className={'logo d-flex align-items-center gap-2 ms-3'}
+                >
+                    <img src={`${domainURL}${academyContext.academy.logo}`} alt={academyContext.academy.name} style={{ width: '120px' }} />
+                    <h6 className="mb-0">{academyContext.academy.name}</h6>
+                </NavLink>
 
+                <ul className="links d-flex align-items-center justify-content-evenly flex-grow-1 flex-shrink-1 m-0">
+                    {links.map((link, index) => (
+                        <li key={index}>
+                            <NavLink
+                                to={link.url}
+                                className='d-block rounded-pill px-3 py-1 transition'
+                                style={({ isActive }) => (
+                                    isActive ? { backgroundColor: academyContext.academy.theme_color, color: '#fff' } : null)}
+                            >
+                                {link.text}
+                            </NavLink>
+                        </li>
+                    ))}
+                </ul>
+                <div>
+                    <ToggleButton func={()=>console.log('asdf')} background={academyContext.academy.theme_color} height={'35px'} width={'35px'} spansWidth={'60%'}/>
+                </div>
+            </div>
+            <span className="d-block w-100" style={{backgroundColor: academyContext.academy.theme_color}}></span>
+        </nav>
+    )
+}
+
+const MemoizedAcademyHeader = memo(AcademyHeader)
 function Learn() {
     return <>
         study
@@ -148,8 +157,7 @@ function AcademyHome() {
 function JoinUs() {
     return <div style={{height:10000}}>join us</div>
 }
-
-export { Learn, AcademyHome, JoinUs } 
+export { Learn, AcademyHome , JoinUs } 
 export default Academy
 
 

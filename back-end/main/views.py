@@ -57,18 +57,15 @@ class AcademyView(APIView):
     
     def get_operations_flow(self, academy_id: int) -> dict:
         """
-        Takes ``academy_id`` argument which is an academy id ``academy_id`` in addition to ``self``.\n 
+        Takes ``academy_id`` argument which is an academy id in addition to ``self``.\n 
         If the `user is:\n
-            -1 not authenticated, ``Academy`` object with ``academy_id`` given  and its ``AcademyDetail`` object with its ``AcademyFeature`` objects data will be returned in a dictionary.\n
-            -2 authenticated, and related to one of ``PathInfo`` objects linked with ``Academy``,  a dictionary with academy, user paths
-            and lessons will returned, otherwise returned dictionary will be identical to the first status.
+            -1 not authenticated,  ``AcademyDetail`` with ``academy_id``  and related ``AcademyFeature`` objects data will be returned in a dictionary.\n
+            -2 authenticated, and related to one of ``PathInfo`` objects linked with ``Academy``,  a dictionary with user ``paths``
+            ``subjects``, and ``lessons`` will returned, otherwise returned dictionary will be identical to the first status.
         """
 
-        # if not isinstance(self.request.user, (User, AnonymousUser)):
-        #     raise TypeError(f"'user' argument must be a 'User' object or an 'AnonymousUser' object , not {type(self.request.user)}")
-        
         if not self.request.user.is_authenticated:
-            return AcademyView.get_academy_detail(academy_id)
+            return self.get_academy_detail(academy_id)
         
         student_paths = PathInfo.objects.filter(academy_id=academy_id, student__student_id=self.request.user.id).select_related('batch', 'level', 'phase')
         if student_paths: #if len(student_paths)
@@ -78,17 +75,18 @@ class AcademyView(APIView):
             serialized_lessons = LessonSerializer(lessons, many=True)
             return {'student_paths': serialized_student_paths.data, 'lessons':serialized_lessons.data}
         
-        return AcademyView.get_academy_detail(academy_id)
+        return self.get_academy_detail(academy_id)
     
     def get(self, request, slug: str):
-        # """
-        # This ``get`` method expects the request link to have a ``slug`` value ``(which can only contain lowercase letters, dashes and numbers )`` 
-        # which referes to a specific academy, but if 
-        # if there is no academy with this slug, it will return ``404 Error``,
-        # """
+        """
+        This ``get`` method expects the request url to have a ``slug`` value ``(which can only contain lowercase letters, dashes and numbers )`` 
+        which referes to a specific academy, but if there is no academy with this ``slug``, it will return ``404 Error``.
+        In case a search param called ``id`` was provided this method will consider the academy is already retrieved
+        and will depend on this ``id`` for filtering related rows.
+        """
 
         id = check_integer(request.GET.get('id'))
-        if id:
+        if id > 0:
             return Response(self.get_operations_flow(id))
         
         academy = Academy.objects.filter(slug=slug)
