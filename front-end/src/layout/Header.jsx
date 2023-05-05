@@ -22,10 +22,8 @@ function Header() {
     fetch(`${domainURL}/auth/logout`, { credentials: 'include' });
   }
 
-  function toggleLinksWithBtn(event) {
-    event.stopPropagation()
+  function toggleLinksWithBtn() {
     document.querySelector('header nav .links').classList.toggle('stretched')
-    document.querySelector('header nav .toggle').classList.toggle('clicked')
   }
   useEffect(() => {
     function toggleLinks(event) {
@@ -57,7 +55,7 @@ function Header() {
             {userContext.user.is_authenticated && <li className='me-auto'><a onClick={logout} href="/">تسجيل الخروج</a></li>}
           </ul>
           <NavLink to={userContext.user.is_authenticated === true ? 'profile/' : 'login/'} className='profile p-0 me-auto'><img src={profileImg ? `http://127.0.0.1:8000${profileImg}` : avatar} alt="profile" className='rounded-pill'/></NavLink>
-          <ToggleButton func={toggleLinksWithBtn} width={'40px'} height={'40px'} spansWidth={'70%'}  />
+          <ToggleButton func={toggleLinksWithBtn}  />
         </nav>
       </div>
     </header>

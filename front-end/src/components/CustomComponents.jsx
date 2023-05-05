@@ -1,24 +1,30 @@
-import React, { memo } from 'react'
+import React, { memo, useRef } from 'react'
 import "../style/components/custom_components.css"
 
-function Heading({ content, margin, colors }) {
+function Heading({ content, margin, colors , hrWidth}) {
     return (
         <div className="section-header mb-5">
             <h1 className={`header-text fit-content mx-${margin} mt-0`} style={{color: colors.contentColor}}>
                 {content}
             </h1>
-            <hr className={`styled-hr mx-${margin}`} style={{backgroundColor: colors.hrBackground}}/>
+            <hr className={`styled-hr mx-${margin}`} style={{backgroundColor: colors.hrBackground, width:hrWidth}}/>
         </div>
     )
 }
 
-function ToggleButton({func, background, width,height, spansWidth}) {
+function ToggleButton({ func, background, linesColor }) {
+    const toggleButton = useRef()
+    function handleClick(event) {
+        event.stopPropagation()
+        toggleButton.current.classList.toggle('clicked');
+        func();
+    }
     return (
-        <div className='toggle d-md-none pointer d-flex justify-content-center align-items-center rounded-circle' onClick={func} style={{backgroundColor: background, width: width, height: height}}>
-            <div style={{width:spansWidth}}>
-                <span className='d-block bg-white w-100 position-relative transition'></span>
-                <span className='d-block bg-white w-100 position-relative transition'></span>
-                <span className='d-block bg-white w-100 position-relative transition'></span>
+        <div ref={toggleButton} className='toggle p-1 d-md-none pointer d-flex justify-content-center align-items-center rounded-circle' style={{backgroundColor:background}} onClick={handleClick}>
+            <div className='w-100 h-100'>
+                <div className='w-100 position-relative transition my-1' style={{backgroundColor: linesColor? linesColor: 'white'}}></div>
+                <div className='w-100 position-relative transition my-1' style={{backgroundColor: linesColor? linesColor: 'white'}}></div>
+                <div className='w-100 position-relative transition my-1' style={{backgroundColor: linesColor? linesColor: 'white'}}></div>
             </div>
         </div>
     )

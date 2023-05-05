@@ -35,6 +35,9 @@
         width: 50%;
         right: -50%;
     }
+    .academy-header .links.open{
+        right: 0;
+    }
     
     .academy-header > .container {
         justify-content: space-between!important;

@@ -4,8 +4,8 @@ import { Outlet, useLoaderData } from 'react-router-dom'
 import Header from './layout/Header';
 import { domainURL } from "./getEnv";
 
-export function loader() {
-  const response = fetch(`${domainURL}/auth/profile`, { method: 'GET', credentials: 'include' });
+export async function loader() {
+  const response = await fetch(`${domainURL}/auth/profile`, { method: 'GET', credentials: 'include' });
   return response;
 }
 function App() {

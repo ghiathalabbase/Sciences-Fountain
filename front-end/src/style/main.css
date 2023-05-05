@@ -162,30 +162,29 @@ header img {
   width: 40px;
   height: 40px;
 }
+.toggle {
+  width: 32px;
+  height: 30px;
+}
 
-.toggle span{
-  transform-origin: right center;
+.toggle > div > div{
   height: 2px;
-  border-radius: 10px;
+  border-radius: 50px;
 }
-.toggle span:not(:last-child){
-  margin-bottom: 6px;
+.toggle:focus{
+  border: none;
 }
-.toggle.clicked span:nth-child(2){
+.toggle.clicked div > div:nth-child(2){
   opacity: 0;
 }
-.toggle.clicked span:first-child, header .toggle.clicked span:last-child{
-  width: 28px!important;
+.toggle.toggle.clicked  > div > div:first-child{
+  transform: translateY(-3px) rotateZ(-45deg);
+  transform-origin: bottom right;
 }
-.toggle.clicked span:not(:last-child){
-  margin-bottom: 8px;
-}
-.toggle.toggle.clicked span:first-child{
-  transform: rotateZ(-45deg);
-}
-.toggle.toggle.clicked span:last-child{
-  transform: rotateZ(+45deg);
-}
+.toggle.toggle.clicked > div > div:last-child{
+  transform-origin: top right;
+  transform: translateY(3px) rotateZ(+45deg);
+} 
 @media (max-width:767px) {
   header .links {
     position: absolute;

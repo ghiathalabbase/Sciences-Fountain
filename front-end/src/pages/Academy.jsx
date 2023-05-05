@@ -33,32 +33,9 @@ export async function academyLoader({ params, request }) {
 
 const AcademyContext = createContext()
 
-
-function Academy(props) {
-    const [first, setfirst] = useState('second')
-    const loader = useLoaderData();
-    const navigator = useNavigate()
-    const renderedFirst = useRef(false);
-    
-    useEffect(() => {
-        renderedFirst.current = true;
-        loader.student_paths? navigator('learn/') : navigator('')
-    }, [])
-    return (
-        <>
-            <div className="academy position-relative">
-                
-                <AcademyContext.Provider value={loader}>
-                    <MemoizedAcademyHeader/>
-                    {renderedFirst.current? <Outlet/> : null}
-                </AcademyContext.Provider>
-            </div>
-        </>
-    )
-}
-
 function AcademyHeader() {
     const academyContext = useContext(AcademyContext);
+    const linksListRef = useRef();
     let mainPath;
     let links = [];
     if (academyContext.student_paths) {
@@ -79,7 +56,7 @@ function AcademyHeader() {
                     <h6 className="mb-0">{academyContext.academy.name}</h6>
                 </NavLink>
 
-                <ul className="links d-flex align-items-center justify-content-evenly flex-grow-1 flex-shrink-1 m-0">
+                <ul ref={linksListRef} className="links d-flex align-items-center justify-content-evenly flex-grow-1 flex-shrink-1 m-0 transition">
                     {links.map((link, index) => (
                         <li key={index}>
                             <NavLink
@@ -94,15 +71,34 @@ function AcademyHeader() {
                     ))}
                 </ul>
                 <div>
-                    <ToggleButton func={()=>console.log('asdf')} background={academyContext.academy.theme_color} height={'35px'} width={'35px'} spansWidth={'60%'}/>
+                    <ToggleButton func={() => { linksListRef.current.classList.toggle('open') }} linesColor={academyContext.academy.theme_color}/>
                 </div>
             </div>
             <span className="d-block w-100" style={{backgroundColor: academyContext.academy.theme_color}}></span>
         </nav>
     )
 }
-
 const MemoizedAcademyHeader = memo(AcademyHeader)
+function Academy(props) {
+    const loader = useLoaderData();
+    const navigator = useNavigate()
+    const renderedFirst = useRef(false);
+    
+    useEffect(() => {
+        renderedFirst.current = true;
+        loader.student_paths? navigator('learn/') : navigator('')
+    }, [])
+    return (
+        <div className="academy position-relative">
+            <AcademyContext.Provider value={loader}>
+                <MemoizedAcademyHeader/>
+                {renderedFirst.current? <Outlet/> : null}
+            </AcademyContext.Provider>
+        </div>
+    )
+}
+
+
 function Learn() {
     return <>
         study
@@ -133,7 +129,8 @@ function AcademyHome() {
             <div className="features section gray-back">
                 <Heading
                     content={'ما تقدمه الأكاديمية'} margin={'auto'}
-                    colors={{ hrBackground: academyContext.academy.theme_color}}
+                    colors={{ hrBackground: academyContext.academy.theme_color }}
+                    hrWidth={120}
                 />
                 <div className="container row m-0">
                     {
