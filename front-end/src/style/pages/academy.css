@@ -16,27 +16,27 @@
     .academy-landing .content {
         width: 75%;
     }
-    .academy-landing .content h1 {
-        font-size: 25px;
-    }
 }
 
 
 @media (max-width: 767px) {
     .academy-header .links {
-        position: fixed;
         display: block!important;
-        z-index: 2;
-        top: 106px;
         background-color: #2a2727;
         color: #fff;
-        height: calc(100% - 106px);
-        padding: 20px;
-        width: 50%;
-        right: -50%;
+        position: absolute;
+        top: calc(100% - 20px);
+        left: 10px;
+        width: 200px;
+        border-radius: 10px;
+        padding: 10px;
+        opacity: 0;
+        z-index: -4;
     }
     .academy-header .links.open{
-        right: 0;
+        top: 100%;
+        z-index: 2;
+        opacity: 1;
     }
     
     .academy-header > .container {

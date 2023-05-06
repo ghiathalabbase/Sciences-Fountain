@@ -3,8 +3,8 @@ import "../style/components/custom_components.css"
 
 function Heading({ content, margin, colors , hrWidth}) {
     return (
-        <div className="section-header mb-5">
-            <h1 className={`header-text fit-content mx-${margin} mt-0`} style={{color: colors.contentColor}}>
+        <div className="section-header  mb-5">
+            <h1 className={`header-text h1-sm fit-content mx-${margin} mt-0`} style={{color: colors.contentColor}}>
                 {content}
             </h1>
             <hr className={`styled-hr mx-${margin}`} style={{backgroundColor: colors.hrBackground, width:hrWidth}}/>

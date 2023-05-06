@@ -48,7 +48,7 @@ body {
     padding: 0 20px;
   }
 }
-@media (max-width:767px) {
+@media (min-width:768px) {
 
 }
 @media (min-width: 992px) {
@@ -197,13 +197,16 @@ header img {
     background-color: var(--header-back-color);
     z-index: -2;
   }
-  header .links:not(.stretched){
+  header .links:not(.open){
     padding: 0!important;
   }
-  header .links.stretched {
+  header .links.open {
     height: 232px;
     opacity: 1;
   }
 
+  .h1-sm {
+    font-size: 25px!important;
+  }
 } 
 /* Header (End) */

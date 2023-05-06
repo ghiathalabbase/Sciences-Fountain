@@ -62,6 +62,14 @@ const router = createBrowserRouter([
               {
                 path: 'courses/',
                 element: 'courses'
+              },
+              {
+                path: 'questions/',
+                element: 'questions'
+              },
+              {
+                path: 'quizes/',
+                element: 'quizes'
               }
             ]
           }

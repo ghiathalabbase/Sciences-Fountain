@@ -4,6 +4,7 @@ import { UserContext } from '../context/UserContext';
 import avatar from '../images/avatar.svg'
 import { domainURL } from '../getEnv';
 import { ToggleButton } from '../components/CustomComponents';
+import { collapse } from '../utils';
 function Header() {
   const [profileImg, setProfileImg] = useState()
   let userContext = useContext(UserContext);
@@ -23,21 +24,12 @@ function Header() {
   }
 
   function toggleLinksWithBtn() {
-    document.querySelector('header nav .links').classList.toggle('stretched')
+    document.querySelector('header nav .links').classList.toggle('open')
   }
   useEffect(() => {
-    function toggleLinks(event) {
-      const links = document.querySelector('header nav .links');
-      const toggleBtn = document.querySelector('header nav .toggle');
-      if (event.target !== toggleBtn && event.target !== links) {
-        links.classList.remove('stretched')
-        toggleBtn.classList.remove('clicked')
-      }
-    }
-
-    document.addEventListener('click', toggleLinks);
+    document.addEventListener('click', collapse);
     return () => {
-      document.removeEventListener('click', toggleLinks)
+      document.removeEventListener('click', collapse)
     };
   }, [])
 
@@ -47,7 +39,7 @@ function Header() {
         <NavLink className='logo' to='' ><h1 className='text-white m-0'>Logo</h1></NavLink>
         
         <nav className='d-flex align-items-center gap-3 flex-grow-1 flex-shrink-1'>
-          <ul className='links d-md-flex align-items-center gap-3 flex-grow-1 flex-shrink-1 m-0 px-3 px-md-0 py-2 py-md-0 fs-6 transition z-3'>
+          <ul className='links collapsable d-md-flex align-items-center gap-3 flex-grow-1 flex-shrink-1 m-0 px-3 px-md-0 py-2 py-md-0 fs-6 transition z-3'>
             <li className='mb-1 mb-md-0'><NavLink to='/' >الرئيسية</NavLink></li>
             <li className='mb-1 mb-md-0'><NavLink to='academies/' >الأكاديميات</NavLink></li>
             <li className='mb-1 mb-md-0'><NavLink to='contact/' >تواصل معنا</NavLink></li>

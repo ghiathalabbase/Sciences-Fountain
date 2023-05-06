@@ -21,5 +21,12 @@ async function CSRFSetter() {
     })
 }
   
-
-export {cookieGetter, CSRFSetter}
+function collapse(event, ) {
+    const links = document.querySelectorAll('.collapsable');
+    const toggleBtn = document.querySelectorAll('.toggle');
+    if (event.target !== toggleBtn && event.target !== links) {
+        links.forEach((element)=>element.classList.remove('open'))
+        toggleBtn.forEach((element)=>element.classList.remove('clicked'))
+    }
+}
+export {cookieGetter, CSRFSetter, collapse}
