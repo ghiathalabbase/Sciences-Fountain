@@ -85,8 +85,8 @@ class LoginView(View):
         if password_authenticity:
             login(self.request, user)
             serialized_user = UserSerializer(instance=user)
-            serialized_profile = ProfileSerializer(instance=Profile.objects.get(user_id=user.id))
-            return JsonResponse({** serialized_profile.data, **serialized_user.data,  'is_authenticated': True})
+            serialized_profile = ProfileSerializer(instance=Profile.objects.select_related('country').get(user_id=user.id))
+            return JsonResponse({**serialized_profile.data, **serialized_user.data,  'is_authenticated': True})
         else:
             return JsonResponse('Wrong Password', safe=False)
 
@@ -99,14 +99,15 @@ class ProfileView(View):
     def get(self, request):
         if request.user.is_authenticated:
             serialized_user = UserSerializer(instance=self.request.user)
-            serialized_profile = ProfileSerializer(instance=Profile.objects.get(user_id=self.request.user))
+            serialized_profile = ProfileSerializer(instance=Profile.objects.select_related('country').get(user_id=self.request.user))
             return JsonResponse({**serialized_profile.data, **serialized_user.data,  'is_authenticated': True})
         else:
             return JsonResponse({'is_authenticated': False})
             
 def index(request):
-    from utils import OptimizedPaginator
-    userlist = User.objects.all().order_by('email')
-    pg = OptimizedPaginator(object_list=userlist, per_page=2, count=8)
+    # from utils import OptimizedPaginator
+    # userlist = User.objects.all().order_by('email')
+    # pg = OptimizedPaginator(object_list=userlist, per_page=2)
+    # print(pg.num_pages)
     return render(request, 'index.html')
     

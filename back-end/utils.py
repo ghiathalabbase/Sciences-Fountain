@@ -1,11 +1,11 @@
 from django.core.paginator import Paginator
 from django.core.cache import cache
 
-def check_integer(value):
+def check_integer(value) -> int:
     try:
         return int(value)
     except:
-        return False
+        return 0
     
 ALLOWED_CACHED_MODELS = ["Academy"]
 class OptimizedPaginator(Paginator):
@@ -23,7 +23,6 @@ class OptimizedPaginator(Paginator):
                 model_count = cache.get(model)
                 if model_count is not None :
                     self.count = model_count
-                    # print(model_count)
                 else:
                     cache.set(model, self.count, 7200)
     
@@ -52,8 +51,8 @@ class OptimizedPaginator(Paginator):
         else:
             yield 1
             yield self.ELLIPSIS
-            start = max(number - 2, 2)
-            end = min(number + 2, self.num_pages - 1)
+            start = number - 2
+            end = number + 2
             yield from range(start, end+1)
             yield self.ELLIPSIS
             yield self.num_pages
