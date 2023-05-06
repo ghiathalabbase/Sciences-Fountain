@@ -1,12 +1,11 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import "../style/pages/home.css";
 import { Heading } from '../components/CustomComponents';
 import { domainURL } from '../getEnv';
 import Slider from '../components/Slider';
 import { NavLink } from 'react-router-dom';
-
 
 function Home() {
   // const location = useLocation();
