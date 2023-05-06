@@ -6,10 +6,11 @@ import { domainURL } from '../getEnv';
 function Paginator({apiPath, returnObjects, canChangePerPage}) {
     // const [objects, setObjects] = useState({data: []});
     const [pageNum, setPageNum] = useState(1);
-    const [perPage, setPerPage] = useState(100);
+    const [perPage, setPerPage] = useState(1000);
+    const [pagesList, setPagesList] = useState({list: []});
     const num_pages = useRef();
     const count = useRef();
-    const [pagesList, setPagesList] = useState({list: []})
+    let academies_dict = useRef({});
 
     function getPage(event) {
         let id = parseInt(event.target.id);
@@ -21,16 +22,24 @@ function Paginator({apiPath, returnObjects, canChangePerPage}) {
         if (val <= 1000 && val >= 10) {
             setPerPage(val);
             setPageNum(1);
+            academies_dict.current = {}
         }
     }
 
     async function getObjects() {
+        let prev_data = academies_dict.current[pageNum];
+        if (prev_data) {
+            returnObjects(prev_data.page_objects);
+            setPagesList({list: prev_data.pages_list});
+            return;
+        }
         const response = await fetch(`${domainURL}${apiPath}?page_num=${pageNum}&per_page=${perPage}${(!isNaN(parseInt(count.current)) && count.current > 0)? `&count=${count.current}`: ''}`);
         const data = await response.json();
         returnObjects(data.page_objects);
-        setPagesList({list: data.pages_list})
+        setPagesList({list: data.pages_list});
         num_pages.current = data.num_pages;
-        count.current = data.count
+        count.current = data.count;
+        academies_dict.current[pageNum] = {page_objects: data.page_objects, pages_list: data.pages_list};
     }
 
     function refreshSelectedNum() {
