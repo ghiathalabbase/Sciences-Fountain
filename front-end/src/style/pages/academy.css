@@ -1,0 +1,54 @@
+.academy-header > span {
+    height: 2px;
+}
+
+.academy-landing {
+    height: calc(100dvh - 108px) ;
+}
+.academy-landing .content {
+    width: 50%;
+}
+.academy-landing .content h1 {
+    line-height: 3rem
+}
+
+@media (max-width:576px) {
+    .academy-landing .content {
+        width: 75%;
+    }
+}
+
+
+@media (max-width: 767px) {
+    .academy-header .links {
+        display: block!important;
+        background-color: #2a2727;
+        color: #fff;
+        position: absolute;
+        top: calc(100% - 20px);
+        left: 10px;
+        width: 200px;
+        border-radius: 10px;
+        padding: 10px;
+        opacity: 0;
+        z-index: -4;
+    }
+    .academy-header .links.open{
+        top: 100%;
+        z-index: 2;
+        opacity: 1;
+    }
+    
+    .academy-header > .container {
+        justify-content: space-between!important;
+        gap: 0!important;
+    }
+}
+.features .feature:hover{
+    box-shadow: 5px 5px 10px #4d4949a1;
+    transform: translateY(-5px);
+}
+.feature {
+    padding: 14px;
+    border-radius: 20px;
+}

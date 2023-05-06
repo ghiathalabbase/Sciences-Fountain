@@ -24,6 +24,7 @@ Colors From Coolors Website :
   padding: 0;
   box-sizing: border-box;
   direction: rtl;
+  margin: 0;
 }
 ul {
   list-style: none;
@@ -39,17 +40,22 @@ body {
 }
 .container {
   max-width: 100% !important;
-  padding: 0 80px ;
+  padding: 0 5px;
+
 }
-@media (max-width:768px) {
+@media (min-width:576px) {
   .container {
-    padding: 0 30px;
+    padding: 0 20px;
   }
 }
-@media (max-width:576px) {
-  .container {
-    padding: 20px;
-  }
+@media (min-width:768px) {
+
+}
+@media (min-width: 992px) {
+  
+}
+@media (min-width: 1200px) {
+  
 }
 @media (min-width: 1400px) {
   .container {
@@ -66,7 +72,6 @@ body {
   width: 45px;
   height: 2px !important;
   color: transparent;
-  background-color: #dda15e;
   opacity: 1;
   margin: 10px auto;
 }
@@ -118,6 +123,21 @@ body {
 .static-button:hover {
     background-color: #bc6c25;
 }
+
+.section {
+  padding: 50px 0 ;
+}
+.gray-back {
+  background-color: #f0f2f5;
+}
+
+.error {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .disabled {
   opacity: 0.60;
   cursor: auto;
@@ -146,33 +166,29 @@ header img {
   width: 40px;
   height: 40px;
 }
-header .toggle {
-  width: 25px;
-  height: 100%;
+.toggle {
+  width: 32px;
+  height: 30px;
 }
-header .toggle span{
-  transform-origin: right center;
+
+.toggle > div > div{
   height: 2px;
-  border-radius: 10px;
+  border-radius: 50px;
 }
-header .toggle span:not(:last-child){
-  margin-bottom: 6px;
+.toggle:focus{
+  border: none;
 }
-header .toggle.clicked span:nth-child(2){
+.toggle.clicked div > div:nth-child(2){
   opacity: 0;
 }
-header .toggle.clicked span:first-child, header .toggle.clicked span:last-child{
-  width: 28px!important;
+.toggle.toggle.clicked  > div > div:first-child{
+  transform: translateY(-3px) rotateZ(-45deg);
+  transform-origin: bottom right;
 }
-header .toggle.clicked span:not(:last-child){
-  margin-bottom: 8px;
-}
-header .toggle.toggle.clicked span:first-child{
-  transform: rotateZ(-45deg);
-}
-header .toggle.toggle.clicked span:last-child{
-  transform: rotateZ(+45deg);
-}
+.toggle.toggle.clicked > div > div:last-child{
+  transform-origin: top right;
+  transform: translateY(3px) rotateZ(+45deg);
+} 
 @media (max-width:767px) {
   header .links {
     position: absolute;
@@ -185,23 +201,16 @@ header .toggle.toggle.clicked span:last-child{
     background-color: var(--header-back-color);
     z-index: -2;
   }
-  header .links:not(.stretched){
+  header .links:not(.open){
     padding: 0!important;
   }
-  header .links.stretched {
+  header .links.open {
     height: 232px;
     opacity: 1;
   }
+
+  .h1-sm {
+    font-size: 25px!important;
+  }
 } 
 /* Header (End) */
-/* Loading Line (Start) */
-.loading-line {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px;
-  /* width: 100%; */
-  background-color: var(--primary-color);
-  transition: 0.2s;
-}
-/* Loading Line (End) */

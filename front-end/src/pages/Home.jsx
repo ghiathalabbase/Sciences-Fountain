@@ -49,7 +49,7 @@ function Home() {
 
       <div className="academies-section section-padding">
         <div className="container">
-          <Heading content={"الأكاديميات"} margin={"auto"}/>
+          <Heading content={"الأكاديميات"} margin={"auto"} colors={{contentColor:'#00999d', hrBackground: '#c49f55'}}/>
           <div className="academies row text-center justify-content-center">
             <Slider objects={academies} renderItem={renderAcademy}/>
           </div>

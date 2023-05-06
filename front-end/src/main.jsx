@@ -1,14 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
+import App, {loader as appLoader} from './App'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Academies, About, Contact, Dashboard, Home, Login, Profile, Register } from './pages';
-import Academy from './pages/Academy';
-
+import Academy, {academyLoader,Learn, AcademyHome, JoinUs} from './pages/Academy';
+import Error from './components/Error';
 // import './js/jquery-3.6.0.min.js'
 const router = createBrowserRouter([
   {
     element: <App />,
+    loader: appLoader,
+    shouldRevalidate: ()=> false,
     children: [
       {
         path: '/',
@@ -17,10 +19,6 @@ const router = createBrowserRouter([
       {
         path: 'academies/',
         element: <Academies/>,
-      },
-      {
-        path: 'academy/:academy_slug/',
-        element: <Academy/>
       },
       {
         path: 'contact/',
@@ -41,6 +39,41 @@ const router = createBrowserRouter([
       {
         path: 'register/',
         element: <Register />,
+      },
+      {
+        path: 'academy/:academy_slug/',
+        element: <Academy />,
+        errorElement: <Error/>,
+        loader: academyLoader,
+        shouldRevalidate: () => false,
+        children: [
+          {
+            index:true,
+            element: <AcademyHome/>
+          },
+          {
+            path: 'joinus/',
+            element: <JoinUs/>
+          },
+          {
+            path: 'learn/',
+            element: <Learn />,
+            children: [
+              {
+                path: 'courses/',
+                element: 'courses'
+              },
+              {
+                path: 'questions/',
+                element: 'questions'
+              },
+              {
+                path: 'quizes/',
+                element: 'quizes'
+              }
+            ]
+          }
+        ]
       },
     ]
     
