@@ -33,7 +33,7 @@ class Country(models.Model):
 class Academy(models.Model):
     name = models.CharField(max_length=80)
     slug = models.SlugField(unique=True)
-    logo = models.ImageField(upload_to=ACADEMY_IMAGES_PATH, null=True, blank=True)
+    logo = models.ImageField(upload_to=ACADEMY_IMAGES_PATH)
     dashboard_password = models.CharField(max_length=128)
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="academies")
     theme_color = models.CharField(max_length = 10, default=SITE_THEME)
@@ -43,32 +43,31 @@ class Academy(models.Model):
     admins = models.ManyToManyField(User, through="AcademyAdmin", related_name="admin_in")
     rate = models.PositiveIntegerField(default=0)
 
-    def __str__(self) -> str:
-        return self.name
+    # def __str__(self) -> str:
+    #     return self.name
 
 class AcademyDetail(models.Model):
     title = models.CharField(max_length = 80)
     description = models.TextField()
     about = models.TextField()
     academy = models.OneToOneField(Academy, on_delete=models.CASCADE)
-    # Other Fields
+    landing_photo = models.ImageField(upload_to=ACADEMY_IMAGES_PATH)
+    # def __str__(self) -> str:
+    #     return self.title
 
-    def __str__(self) -> str:
-        return self.title
-
-class AcademyFeautre(models.Model):
+class AcademyFeature(models.Model):
     feature = models.CharField(max_length = 180)
     academy_detail = models.ForeignKey(AcademyDetail, on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
-        return self.academy_detail.__str__()
+    # def __str__(self) -> str:
+    #     return self.academy_detail.__str__()
 
 class AcademyAdmin(models.Model):
     academy = models.ForeignKey(Academy, on_delete=models.CASCADE)
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
-        return self.academy.__str__() + " | " + self.admin.__str__()
+    # def __str__(self) -> str:
+    #     return self.academy.__str__() + " | " + self.admin.__str__()
 
 class Batch(models.Model):
     number = models.PositiveSmallIntegerField()
@@ -77,14 +76,14 @@ class Batch(models.Model):
     admins = models.ManyToManyField(User, through="BatchAdmin")
 
     def __str__(self) -> str:
-        return self.academy.__str__() + " | " + str(self.number)
+        return str(self.number)
 
 class BatchAdmin(models.Model):
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
-        return self.batch.__str__() + " | " + self.admin.__str__()
+    # def __str__(self) -> str:
+    #     return self.batch.__str__() + " | " + self.admin.__str__()
 
 class BatchLink(models.Model):
     text = models.CharField(max_length=30)
@@ -92,57 +91,57 @@ class BatchLink(models.Model):
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.batch.__str__()
+        return self.link
 
 class Level(models.Model):
     number = models.PositiveSmallIntegerField()
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.batch.__str__() + " | " + str(self.number)
+        return str(self.number)
 
-class Stage(models.Model):
+class Phase(models.Model):
     number = models.PositiveSmallIntegerField()
     level = models.ForeignKey(Level, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.level.__str__() + " | " + str(self.number)
+        return str(self.number)
 
 class PathInfo(models.Model):
     academy = models.ForeignKey(Academy, on_delete=models.CASCADE)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     level = models.ForeignKey(Level, on_delete=models.CASCADE)
-    stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
+    phase = models.ForeignKey(Phase, on_delete=models.CASCADE)
     students = models.ManyToManyField(User, through='Student', related_name="in_academies")
 
-    def __str__(self) -> str:
-        return self.stage.__str__()
+    # def __str__(self) -> str:
+    #     return self.phase.__str__()
 
 class Student(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     path_info = models.ForeignKey(PathInfo, on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
-        return self.student.__str__() + " : " + self.path_info.__str__()
+    # def __str__(self) -> str:
+    #     return self.student.__str__() + " : " + self.path_info.__str__()
 
 class Section(models.Model):
     name = models.CharField(max_length=40)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.name + ": " + self.batch.__str__()
+        return self.name
 
 class Topic(models.Model):
     name = models.CharField(max_length=40)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.name + ": " + self.batch.__str__()
+        return self.name
 
 class Subject(models.Model):
     name = models.CharField(max_length=40)
     author_name = models.CharField(max_length=40, null=True, blank=True)
-    image = models.ImageField(upload_to=ACADEMY_IMAGES_PATH, null=True)
+    image = models.ImageField(upload_to=ACADEMY_IMAGES_PATH, null=True, blank=True)
     source_url = models.URLField()
     exercise_count = models.PositiveSmallIntegerField() 
     lesson_count = models.PositiveSmallIntegerField()
@@ -150,8 +149,8 @@ class Subject(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     path_info = models.ForeignKey(PathInfo, on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
-        return self.name + ": " + self.path_info.__str__()
+    # def __str__(self) -> str:
+    #     return self.name + ": " + self.path_info.__str__()
 
 class Lesson(models.Model):
     number = models.PositiveSmallIntegerField()
@@ -161,8 +160,8 @@ class Lesson(models.Model):
     date = models.DateField()
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
-        return self.title + " | " + self.subject.__str__()
+    # def __str__(self) -> str:
+    #     return self.title + " | " + self.subject.__str__()
 
 class Note(models.Model):
     text = models.CharField(max_length=120)

@@ -4,6 +4,7 @@ import { domainURL } from '../getEnv'
 import '../style/pages/academy.css'
 import { ToggleButton, Heading } from "../components/CustomComponents";
 import { collapse } from "../utils";
+
 class LinkContent{
     constructor(text, url) {
         this.text = text;
