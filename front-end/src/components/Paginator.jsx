@@ -3,10 +3,10 @@ import "../style/components/paginator.css"
 import { domainURL } from '../getEnv';
 
 
-function Paginator({apiPath, returnObjects, canChangePerPage}) {
+function Paginator({api_path, returnObjects, can_change_per_page, per_page}) {
     // const [objects, setObjects] = useState({data: []});
     const [pageNum, setPageNum] = useState(1);
-    const [perPage, setPerPage] = useState(1000);
+    const [perPage, setPerPage] = useState(per_page);
     const [pagesList, setPagesList] = useState({list: []});
     const num_pages = useRef();
     const count = useRef();
@@ -33,7 +33,7 @@ function Paginator({apiPath, returnObjects, canChangePerPage}) {
             setPagesList({list: prev_data.pages_list});
             return;
         }
-        const response = await fetch(`${domainURL}${apiPath}?page_num=${pageNum}&per_page=${perPage}${(!isNaN(parseInt(count.current)) && count.current > 0)? `&count=${count.current}`: ''}`);
+        const response = await fetch(`${domainURL}${api_path}?page_num=${pageNum}&per_page=${perPage}${(!isNaN(parseInt(count.current)) && count.current > 0)? `&count=${count.current}`: ''}`);
         const data = await response.json();
         returnObjects(data.page_objects);
         setPagesList({list: data.pages_list});
@@ -82,7 +82,7 @@ function Paginator({apiPath, returnObjects, canChangePerPage}) {
     return (
         <>
         <div className="content d-flex flex-column gap-4">
-            {canChangePerPage
+            {can_change_per_page
             ?
             (
             <div className="per-page-content align-items-center d-flex gap-4">
@@ -119,7 +119,8 @@ function Paginator({apiPath, returnObjects, canChangePerPage}) {
 }
 
 Paginator.defaultProps = {
-    canChangePerPage: 0
+    can_change_per_page: 0,
+    per_page: 100
 }
 
 export default Paginator

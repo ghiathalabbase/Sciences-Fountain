@@ -12,6 +12,13 @@ function Heading({ content, margin, colors , hrWidth}) {
     )
 }
 
+Heading.defaultProps = {
+    colors: {
+        contentColor: "#313131",
+        hrBackground: "#c49f55",
+    }
+}
+
 function ToggleButton({ func, background, linesColor }) {
     const toggleButton = useRef()
     function handleClick(event) {

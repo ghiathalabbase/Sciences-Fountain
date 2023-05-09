@@ -20,7 +20,7 @@ function Home() {
     return (
       <>
       {
-      <div className="academy-item transition">
+      <div className="academy-item transition box-hover">
         <NavLink to={`/academy/${data.slug}/`} state={data}>
           {<img src={domainURL+data.logo} className='img-fluid' alt={data.name}/>}
         </NavLink>

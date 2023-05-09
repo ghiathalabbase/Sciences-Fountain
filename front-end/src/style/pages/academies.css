@@ -1,0 +1,27 @@
+.filters-section {
+    border-left: solid 5px #00999d;
+    background-color: #c49f55;
+    opacity: 0.3;
+}
+
+.academy-box .img-container{
+    height: 120px;
+}
+.academy-box img {
+    max-height: 120px;
+    object-fit: cover;
+}
+.academy-box .academy-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 140px;
+}
+.academy-box .ac-name {
+    font-size: 20px;
+}
+.academy-box .ac-type {
+    background-color: rgb(239, 243, 245);
+    color: rgb(115, 136, 168);
+    font-size: 14px;
+}

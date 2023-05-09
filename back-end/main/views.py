@@ -58,10 +58,10 @@ class AcademyView(APIView):
     def get_operations_flow(self, academy_id: int) -> dict:
         """
         Takes ``academy_id`` argument which is an academy id in addition to ``self``.\n 
-        If the `user is:\n
-            -1 not authenticated,  ``AcademyDetail`` with ``academy_id``  and related ``AcademyFeature`` objects data will be returned in a dictionary.\n
-            -2 authenticated, and related to one of ``PathInfo`` objects linked with ``Academy``,  a dictionary with user ``paths``
-            ``subjects``, and ``lessons`` will returned, otherwise returned dictionary will be identical to the first status.
+        If the ``user`` is:\n
+        -1 not authenticated,  ``AcademyDetail`` with ``academy_id``  and related ``AcademyFeature`` objects data will be returned in a dictionary.\n
+        -2 authenticated, and related to one of ``PathInfo`` objects linked with ``Academy``,  a dictionary with user ``paths``
+        ``subjects``, and ``lessons`` will returned, otherwise returned dictionary will be identical to the first status.
         """
 
         if not self.request.user.is_authenticated:
@@ -119,8 +119,4 @@ class AcademyView(APIView):
         #     return Response({'academy': serialized_academy.data, 'student_paths': serialized_student_paths.data, 'lessons':serialized_lessons.data})
         
         # return self.get_academy_detail(academy)
-        
-        
-        
-        
 

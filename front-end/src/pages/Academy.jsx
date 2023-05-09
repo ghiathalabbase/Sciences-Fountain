@@ -141,7 +141,7 @@ function AcademyHome() {
                     colors={{ hrBackground: academyContext.academy.theme_color }}
                     hrWidth={120}
                 />
-                <div className="container row m-0">
+                <div className="container row m-auto">
                     {
                         academyContext.features.map((feature) => (
                             <div className="box col-sm-12 col-md-6 mt-4" key={feature.id}>
