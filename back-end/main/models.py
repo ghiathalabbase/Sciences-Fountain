@@ -30,6 +30,12 @@ class Country(models.Model):
     def __str__(self) -> str:
         return self.name
 
+class AcademyType(models.Model):
+    ac_type = models.CharField(max_length = 40)
+
+    def __str__(self) -> str:
+        return self.ac_type
+
 class Academy(models.Model):
     name = models.CharField(max_length=80)
     slug = models.SlugField(unique=True)
@@ -37,12 +43,12 @@ class Academy(models.Model):
     dashboard_password = models.CharField(max_length=128)
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="academies")
     theme_color = models.CharField(max_length = 10, default=SITE_THEME)
-    academy_type = models.CharField(max_length = 40, null=True)
+    academy_type = models.ForeignKey(AcademyType, on_delete=models.SET_DEFAULT, default=1, related_name="academies")
     allow_comments = models.BooleanField(default = False)
     created_at = models.DateTimeField(auto_now_add=True)
     admins = models.ManyToManyField(User, through="AcademyAdmin", related_name="admin_in")
     rate = models.PositiveIntegerField(default=0)
-
+    
     # def __str__(self) -> str:
     #     return self.name
 

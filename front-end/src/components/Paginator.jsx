@@ -40,6 +40,9 @@ function Paginator({api_path, returnObjects, can_change_per_page, per_page}) {
         num_pages.current = data.num_pages;
         count.current = data.count;
         academies_dict.current[pageNum] = {page_objects: data.page_objects, pages_list: data.pages_list};
+        if (Object.keys(academies_dict.current).length * perPage >= 2500) {
+            academies_dict.current = {}
+        }
     }
 
     function refreshSelectedNum() {
@@ -96,7 +99,7 @@ function Paginator({api_path, returnObjects, can_change_per_page, per_page}) {
             ("")
             }
             <div className="paginator-container d-flex gap-2 align-items-center">
-                {<div className={`page-arrow page-back bg-white p-4 pointer ${common_classes}`} onClick={changePage}><i className="fa-solid fa-angle-right page-back" onClick={changePage}></i></div>}
+                {<div className={`page-arrow page-back shadow bg-white p-4 pointer ${common_classes}`} onClick={changePage}><i className="fa-solid fa-angle-right page-back" onClick={changePage}></i></div>}
 
                 <div className="paginator-list d-flex gap-2 bg-white shadow rounded-pill fit-content">
                     {
@@ -111,7 +114,7 @@ function Paginator({api_path, returnObjects, can_change_per_page, per_page}) {
                     }
                 </div>
 
-                {<div className={`page-arrow page-next bg-white p-4 pointer ${common_classes}`} onClick={changePage}><i className="fa-solid fa-angle-left page-next" onClick={changePage}></i></div>}
+                {<div className={`page-arrow page-next shadow bg-white p-4 pointer ${common_classes}`} onClick={changePage}><i className="fa-solid fa-angle-left page-next" onClick={changePage}></i></div>}
             </div>
         </div>
         </>

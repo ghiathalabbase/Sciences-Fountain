@@ -78,7 +78,7 @@ function Slider({ objects, renderItem }) {
     return (
     <>
     <div ref={shownSlider} className="main-slider overflow-auto position-relative">
-        <div ref={slider} className="slider-container row flex-nowrap transition overflow-hidden">
+        <div ref={slider} className="slider-container align-items-center row flex-nowrap transition overflow-hidden">
             {renderItems()}
         </div>
         {<i onClick={moveSlider} className={`left fa-angle-left ${common_classes} primary-hover-bgcolor white-hover-color`}></i>}

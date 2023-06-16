@@ -1,8 +1,19 @@
-.filters-section {
+.academies-landing-page .landing-image{
+    background-image: url("../../images/land.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 75vh;
+}
+.academies-landing-page .landing-header {
+    color: white;
+    font-size: 70px;
+}
+
+/* .filters-section {
     border-left: solid 5px #00999d;
     background-color: #c49f55;
     opacity: 0.3;
-}
+} */
 
 .academy-box .img-container{
     height: 120px;
@@ -18,7 +29,7 @@
     height: 140px;
 }
 .academy-box .ac-name {
-    font-size: 20px;
+    font-size: 18px;
 }
 .academy-box .ac-type {
     background-color: rgb(239, 243, 245);

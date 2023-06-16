@@ -6,14 +6,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import (
     Academy, PathInfo, Student, Subject, Lesson,
-    AcademyDetail, AcademyFeature
+    AcademyDetail, AcademyFeature, AcademyType
 )
 from authentication.models import User
 from django.contrib.auth.models import AnonymousUser
 from .serializers import (
     AcademySerializer, AcademyDetailSerializer,
     PathInfoSerializer,BatchSerializer,
-    LessonSerializer, FeatureSerializer
+    LessonSerializer, FeatureSerializer, AcademyTypeSerializer
 )
 from utils import OptimizedPaginator, check_integer
 # Create your views here.
@@ -22,21 +22,22 @@ class CSRFView(View):
     def get(self, request):
         return HttpResponse()
 
-def get_paginator(request, Model, ModelSerializer):
+def get_paginator(request, Model, ModelSerializer, related_fields=[]):
     count = request.GET.get("count")
     page_num = request.GET.get("page_num")
     per_page = request.GET.get("per_page")
     if page_num is None: page_num = 1
-    objects = Model.objects.all()
+    objects = Model.objects.select_related(*related_fields).all() if related_fields else Model.objects.all()
     objects_paginator = OptimizedPaginator(object_list=objects, per_page=per_page, count=count)
     serialized_objects = ModelSerializer(objects_paginator.get_page(page_num).object_list, many=True)
     pages_list = list(objects_paginator.get_elided_page_range(page_num, on_each_side=2, on_ends=1))
-    return Response({'count': objects_paginator.count, 'num_pages':objects_paginator.num_pages, 'pages_list': pages_list, 'page_objects': serialized_objects.data})
+    return {'count': objects_paginator.count, 'num_pages':objects_paginator.num_pages, 'pages_list': pages_list, 'page_objects': serialized_objects.data}
 
 class Academies(APIView):
     def get(self, request):
-        return get_paginator(request, Academy, AcademySerializer)
-    
+        related_fields = ['academy_type']
+        data = get_paginator(request, Academy, AcademySerializer, related_fields)
+        return Response(data)
 
 class AcademyListView(APIView):
     def get(self, request, format=None):
@@ -120,3 +121,8 @@ class AcademyView(APIView):
         
         # return self.get_academy_detail(academy)
 
+class AcademyTypeView(APIView):
+    def get(self, request, format=None):
+        types = AcademyType.objects.all()
+        serialized_types = AcademyTypeSerializer(types, many=True).data
+        return Response(serialized_types, status=status.HTTP_200_OK)

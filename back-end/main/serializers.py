@@ -1,6 +1,6 @@
 from .models import (
     Profile, Academy, AcademyDetail, AcademyFeature, PathInfo,
-    Batch, Level, Phase, Subject, Lesson
+    Batch, Level, Phase, Subject, Lesson, AcademyType
 )
 from rest_framework import serializers
 from rest_framework.fields import empty
@@ -10,7 +10,13 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = "__all__"
 
+class AcademyTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AcademyType
+        fields = "__all__"
+
 class AcademySerializer(serializers.ModelSerializer):
+    academy_type = serializers.StringRelatedField()
     class Meta:
         model = Academy
         exclude = ('admins', 'dashboard_password')

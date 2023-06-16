@@ -34,20 +34,13 @@ class OptimizedPaginator(Paginator):
         provided and a compact form is returned instead.
         """
         number = self.validate_number(number)
-
-        # If the number of pages is less than or equal to 9, return the whole range
         if self.num_pages <= 9:
             yield from self.page_range
             return
-
-        # If the current page is within the first 3 pages, return the first 4 pages and an ellipsis,
-        # followed by the last 4 pages
         if number <= 3 or number > self.num_pages - 3:
             yield from range(1, 5)
             yield self.ELLIPSIS
             yield from range(self.num_pages - 3, self.num_pages + 1)
-        # If the current page is somewhere in the middle, return the first page, an ellipsis,
-        # 5 pages centered around the current page, another ellipsis, and the last page
         else:
             yield 1
             yield self.ELLIPSIS

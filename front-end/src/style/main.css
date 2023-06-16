@@ -18,7 +18,8 @@ Colors From Coolors Website :
   --header-font-color: #ededed;
   --hover-back-color: #3031427d;
   --primary-color: #00999d;
-  --secondary-color: #c49f55;
+  /* --secondary-color: #c49f55; */
+  --secondary-color: #d87c2b;
 }
 * {
   padding: 0;
@@ -67,6 +68,7 @@ body {
   width: 45px;
   height: 2px !important;
   color: transparent;
+  background-color: #ff9333;
   opacity: 1;
   margin: 10px auto;
 }
@@ -137,7 +139,7 @@ body {
 }
 .box-hover:hover {
   box-shadow: 0 0 12px 0px #00000070 !important;
-  margin-top: -5px;
+  margin-top: -3px;
 }
 /* Global Styles (End) */
 
