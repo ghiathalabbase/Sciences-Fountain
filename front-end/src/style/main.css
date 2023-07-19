@@ -41,7 +41,7 @@ body {
 }
 .container {
   max-width: 100% !important;
-  padding: 0 80px ;
+  padding: 0 60px ;
 }
 @media (max-width:768px) {
   .container {
@@ -56,6 +56,11 @@ body {
 @media (min-width: 1400px) {
   .container {
     max-width: 1320px !important;
+  }
+}
+@media (min-width: 1750px) {
+  .container {
+    max-width: 1690px !important;
   }
 }
 .pointer {
@@ -141,6 +146,9 @@ body {
   box-shadow: 0 0 12px 0px #00000070 !important;
   margin-top: -3px;
 }
+.opacity-0 {
+  opacity: 0;
+}
 /* Global Styles (End) */
 
 /* Header (Start) */
@@ -206,6 +214,7 @@ header img {
   header .links.open {
     height: 232px;
     opacity: 1;
+    z-index: 5;
   }
 
   .h1-sm {

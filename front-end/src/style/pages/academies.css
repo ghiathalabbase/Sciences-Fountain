@@ -36,3 +36,35 @@
     color: rgb(115, 136, 168);
     font-size: 14px;
 }
+
+@media (max-width: 768px) {
+    .filters-section {
+        opacity: 0;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: #ededed;
+        margin-top: 0;
+        padding-top: 50px;
+    }
+    .open {
+        opacity: 1;
+        right: 0;
+    }
+}
+
+.filters-button {
+    background-color: #dedede;
+    padding: 6px 20px;
+}
+.filters-button:hover {
+    background-color: #CCC;
+}
+.close-filters {
+    padding: 5px 15px;
+}
+.close-filters:hover {
+    background-color: #008a8f;
+}

@@ -22,21 +22,50 @@ class CSRFView(View):
     def get(self, request):
         return HttpResponse()
 
-def get_paginator(request, Model, ModelSerializer, related_fields=[]):
+def get_specific_params(request_data, required_params_list):
+    found_params = dict()
+    for param in required_params_list :
+        p_value = request_data.get(param["name"])
+        if p_value:
+            if param["type"] == int and p_value.isdigit():
+                    found_params[param["name"]] = p_value
+            elif param["type"] == float and not p_value.isdigit():
+                try:
+                    no = float(p_value)
+                    found_params[param["name"]] = p_value
+                except:
+                    continue
+            elif isinstance(p_value, param["type"]):
+                found_params[param["name"]] = p_value
+    return found_params
+
+def get_paginator(request, Model, ModelSerializer, related_fields=[], filters=None):
     count = request.GET.get("count")
     page_num = request.GET.get("page_num")
     per_page = request.GET.get("per_page")
     if page_num is None: page_num = 1
     objects = Model.objects.select_related(*related_fields).all() if related_fields else Model.objects.all()
+    objects = objects.filter(**filters) if filters else objects
     objects_paginator = OptimizedPaginator(object_list=objects, per_page=per_page, count=count)
     serialized_objects = ModelSerializer(objects_paginator.get_page(page_num).object_list, many=True)
     pages_list = list(objects_paginator.get_elided_page_range(page_num, on_each_side=2, on_ends=1))
     return {'count': objects_paginator.count, 'num_pages':objects_paginator.num_pages, 'pages_list': pages_list, 'page_objects': serialized_objects.data}
 
+
 class Academies(APIView):
     def get(self, request):
         related_fields = ['academy_type']
-        data = get_paginator(request, Academy, AcademySerializer, related_fields)
+        required_filters = [{"name": "academy_type_id", "type": str}, {"name": "rate", "type": float}, {"name": "name", "type": str}]
+        filters = get_specific_params(request.GET, required_filters)
+        try:
+            filters["rate__gte"] = filters.pop("rate")
+        except:
+            pass
+        try:
+            filters["name__contains"] = filters.pop("name")
+        except:
+            pass
+        data = get_paginator(request, Academy, AcademySerializer, related_fields, filters)
         return Response(data)
 
 class AcademyListView(APIView):

@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Academies, About, Contact, Dashboard, Home, Login, Profile, Register } from './pages';
 import Academy, {academyLoader,Learn, AcademyHome, JoinUs} from './pages/Academy';
 import Error from './components/Error';
-import { loader as AcademiesLoader } from './pages/Academies';
+import { academiesLoader } from './pages/Academies';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       {
         path: 'academies/',
         element: <Academies/>,
-        loader: AcademiesLoader,
+        loader: academiesLoader,
       },
       {
         path: 'contact/',

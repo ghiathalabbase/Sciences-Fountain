@@ -7,7 +7,7 @@ def check_integer(value) -> int:
     except:
         return 0
     
-ALLOWED_CACHED_MODELS = ["Academy"]
+ALLOWED_CACHED_MODELS = []
 class OptimizedPaginator(Paginator):
     def __init__(self, object_list, per_page=None, orphans=0, allow_empty_first_page=True, count:int = None):
         per_page = self.validate_per_page(per_page)

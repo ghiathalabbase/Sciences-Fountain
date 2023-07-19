@@ -39,7 +39,7 @@ function Header() {
         <NavLink className='logo' to='' ><h1 className='text-white m-0'>Logo</h1></NavLink>
         
         <nav className='d-flex align-items-center gap-3 flex-grow-1 flex-shrink-1'>
-          <ul className='links collapsable d-md-flex align-items-center gap-3 flex-grow-1 flex-shrink-1 m-0 px-3 px-md-0 py-2 py-md-0 fs-6 transition z-3'>
+          <ul className='links collapsable d-md-flex align-items-center gap-3 flex-grow-1 flex-shrink-1 m-0 px-3 px-md-0 py-2 py-md-0 fs-6 transition'>
             <li className='mb-1 mb-md-0'><NavLink to='/' >الرئيسية</NavLink></li>
             <li className='mb-1 mb-md-0'><NavLink to='academies/' >الأكاديميات</NavLink></li>
             <li className='mb-1 mb-md-0'><NavLink to='contact/' >تواصل معنا</NavLink></li>

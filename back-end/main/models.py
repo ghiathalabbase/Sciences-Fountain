@@ -37,7 +37,7 @@ class AcademyType(models.Model):
         return self.ac_type
 
 class Academy(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, db_index=True)
     slug = models.SlugField(unique=True)
     logo = models.ImageField(upload_to=ACADEMY_IMAGES_PATH)
     dashboard_password = models.CharField(max_length=128)
@@ -47,7 +47,7 @@ class Academy(models.Model):
     allow_comments = models.BooleanField(default = False)
     created_at = models.DateTimeField(auto_now_add=True)
     admins = models.ManyToManyField(User, through="AcademyAdmin", related_name="admin_in")
-    rate = models.PositiveIntegerField(default=0)
+    rate = models.FloatField(default=0, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
     
     # def __str__(self) -> str:
     #     return self.name

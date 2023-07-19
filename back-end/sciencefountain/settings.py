@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'main',
     'rest_framework',
     'corsheaders',
-    'debug_toolbar'
+    'debug_toolbar',
 ]
 
 AUTH_USER_MODEL = 'authentication.User'
