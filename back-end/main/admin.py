@@ -1,3 +1,3 @@
 from django.contrib import admin
 from .models import *
-admin.site.register((Profile, Country, Academy, AcademyDetail, AcademyFeature, AcademyAdmin, Batch, BatchAdmin, BatchLink, Level, Phase, PathInfo, Student, Section, Topic, Subject, Lesson, Note, Attachment, LessonQuestion, LessonQuestionReply, UserFavourites, Exercise, ExerciseSolution, SubjectDegree, Exam, ExamQuestion, ExamOption, StudentExamAnswer, ExamDegree, Complaint, ComplaintReply, Advertisement, ContactMessage, ContactReply, AcademyType))
+admin.site.register((Profile, Country, Academy, AcademyDetails, AcademyFeature, AcademyAdmin, Batch, BatchAdmin, BatchLink, Level, Phase, PathInfo, Student, Section, Topic, Subject, Lesson, Note, Attachment, LessonQuestion, LessonQuestionReply, UserFavourites, Exercise, ExerciseSolution, SubjectDegree, Exam, ExamQuestion, ExamOption, StudentExamAnswer, ExamDegree, Complaint, ComplaintReply, Advertisement, ContactMessage, ContactReply))

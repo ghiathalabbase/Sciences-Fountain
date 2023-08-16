@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import mimetypes
-mimetypes.add_type("application/javascript", '.js', True)
+from mimetypes import add_type
+add_type("application/javascript", '.js', True)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -97,12 +97,21 @@ DATABASES = {
 }
 
 # Cache
-# CACHES ={
-#     'default':{
-#         'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-#         "LOCATION":'127.0.0.1:11211'
-#     }
-# }
+CACHES ={
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "default-cache",
+    },
+    "register_cache":{
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "register-cache",
+
+    }
+    # 'default':{
+    #     'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+    #     "LOCATION":'127.0.0.1:11211'
+    # }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

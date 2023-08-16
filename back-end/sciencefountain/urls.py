@@ -23,10 +23,13 @@ from authentication import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls')),
-    path('', include('main.urls')),
+    path('api/', include('main.urls')),
     path('', views.index),
     path('login/', TemplateView.as_view(template_name='index.html')),
-    path('register/', TemplateView.as_view(template_name='index.html'))
+    path('register/', TemplateView.as_view(template_name='index.html')),
+    path("academy/albinaa-almanhaji/", TemplateView.as_view(template_name='index.html')),
+    path("academy/albinaa-almanhaji/learn/", TemplateView.as_view(template_name='index.html'))
+    
 ]
 
 

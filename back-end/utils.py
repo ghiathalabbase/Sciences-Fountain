@@ -1,11 +1,12 @@
+from typing import Any
 from django.core.paginator import Paginator
 from django.core.cache import cache
-
-def check_integer(value) -> int:
+from django.http import HttpResponse
+def convert_to_int(value):
     try:
         return int(value)
     except:
-        return 0
+        return
     
 ALLOWED_CACHED_MODELS = []
 class OptimizedPaginator(Paginator):
@@ -64,3 +65,15 @@ class OptimizedPaginator(Paginator):
         except: value = None
 
         return value
+
+class Academy404Response(HttpResponse):
+  status_code = 404
+  def __init__(self,slug:str, content: object = ..., *args: Any, **kwargs: Any) -> None:
+    content = f"There is no academy with `{slug}` slug."
+    super().__init__(content, *args, **kwargs)
+
+class AcademyDetails404Response(HttpResponse):
+  status_code = 404
+  def __init__(self, content: object = ..., *args: Any, **kwargs: Any) -> None:
+    content = "This academy has no details yet"
+    super().__init__(content, *args, **kwargs)

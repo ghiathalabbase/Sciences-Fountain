@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../style/components/paginator.css";
-import { domainURL } from "../getEnv";
-
+import { domainURL, apiURL } from "../getEnv";
 
 function Paginator({ loader, apiPath, canChangePerPage, setNewData, dataIsFiltered }) {
   const [pageNum, setPageNum] = useState(1);
@@ -39,12 +38,11 @@ function Paginator({ loader, apiPath, canChangePerPage, setNewData, dataIsFilter
       if (prev_data) {
         objects.current = prev_data.page_objects;
         pagesList.current = prev_data.pages_list;
-        let data = {count: count.current, num_pages: num_pages.current, page_objects: objects.current, pages_list: pagesList.current};
+        let data = { count: count.current, num_pages: num_pages.current, page_objects: objects.current, pages_list: pagesList.current };
         activeNum.current = page;
-        setNewData({...data, perPage: perPage.current, filters: filters.current});
+        setNewData({ ...data, perPage: perPage.current, filters: filters.current });
         setPageNum(page);
-      }
-      else {
+      } else {
         let params = `page_num=${page}&per_page=${perPage.current}${!isNaN(parseInt(count.current)) && count.current > 0 ? `&count=${count.current}` : ""}${filters.current}`;
         const response = await fetch(`${domainURL}${apiPath}?${params}`);
         var data = await response.json();
@@ -54,7 +52,7 @@ function Paginator({ loader, apiPath, canChangePerPage, setNewData, dataIsFilter
         count.current = data.count;
         cache.current[page] = { page_objects: data.page_objects, pages_list: data.pages_list };
         activeNum.current = page;
-        setNewData({...data, perPage: perPage.current, filters: filters.current});
+        setNewData({ ...data, perPage: perPage.current, filters: filters.current });
         setPageNum(page);
       }
     }
@@ -63,11 +61,9 @@ function Paginator({ loader, apiPath, canChangePerPage, setNewData, dataIsFilter
   if (!objects.current.length) {
     return (
       <>
-      <div className="no-objects">
-        لا يوجد محتوى
-      </div>
+        <div className="no-objects">لا يوجد محتوى</div>
       </>
-    )
+    );
   }
 
   const common_classes = "d-flex justify-content-center align-items-center transition";
@@ -84,13 +80,11 @@ function Paginator({ loader, apiPath, canChangePerPage, setNewData, dataIsFilter
 
         <div className="mobile-paginator-container d-flex align-items-center d-sm-none gap-4">
           <div className={`page-text page-back ${common_mobile_classes} ${common_classes}`} onClick={() => activeNum.current > 1 && getPage(activeNum.current - 1)}>
-              <div className="back-text d-sm-none d-block">السابق</div>
+            <div className="back-text d-sm-none d-block">السابق</div>
           </div>
-          <div className="page-num-text py-2 px-4">
-            {`${activeNum.current} / ${num_pages.current}`}
-          </div>
+          <div className="page-num-text py-2 px-4">{`${activeNum.current} / ${num_pages.current}`}</div>
           <div className={`page-text page-next ${common_mobile_classes} ${common_classes}`} onClick={() => activeNum.current < num_pages.current && getPage(activeNum.current + 1)}>
-              <div className="next-text">التالي</div>
+            <div className="next-text">التالي</div>
           </div>
         </div>
 
@@ -122,7 +116,10 @@ function Paginator({ loader, apiPath, canChangePerPage, setNewData, dataIsFilter
             })}
           </div>
 
-          <div className={`page-arrow page-next bg-white p-4 pointer rounded-circle ${common_classes}`} onClick={() => activeNum.current < num_pages.current && getPage(activeNum.current + 1)}>
+          <div
+            className={`page-arrow page-next bg-white p-4 pointer rounded-circle ${common_classes}`}
+            onClick={() => activeNum.current < num_pages.current && getPage(activeNum.current + 1)}
+          >
             <i className="fa-solid fa-angle-left page-next d-none d-sm-block" />
           </div>
         </div>
@@ -137,7 +134,7 @@ Paginator.defaultProps = {
 };
 
 async function paginatorLoader({ apiPath, perPage }) {
-  const response = await fetch(`${domainURL}${apiPath}${!isNaN(parseInt(perPage)) ? `?per_page=${perPage}` : ""}`);
+  const response = await fetch(`${apiURL}${apiPath}${!isNaN(parseInt(perPage)) ? `?per_page=${perPage}` : ""}`);
   if (response.status !== 200) throw response;
   const data = await response.json();
   return { ...data, perPage };

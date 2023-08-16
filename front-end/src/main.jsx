@@ -1,87 +1,92 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App, {loader as appLoader} from './App'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Academies, About, Contact, Dashboard, Home, Login, Profile, Register } from './pages';
-import Academy, {academyLoader,Learn, AcademyHome, JoinUs} from './pages/Academy';
-import Error from './components/Error';
-import { academiesLoader } from './pages/Academies';
-
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App, { loader as appLoader } from "./App";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Academies, About, Contact, Dashboard, Home, Login, Profile, Register } from "./pages";
+import Academy, { academyLoader, AcademyHome, JoinUs } from "./pages/Academy";
+import Learn from "./pages/Learn";
+import Error from "./components/Error";
+import { academiesLoader } from "./pages/Academies";
+// import './js/jquery-3.6.0.min.js'
+function A() {
+  console.log("asdfa");
+  return "A";
+}
+function Homee() {
+  return "home";
+}
 const router = createBrowserRouter([
   {
     element: <App />,
     loader: appLoader,
-    shouldRevalidate: ()=> false,
+    shouldRevalidate: () => false,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Home />,
       },
       {
-        path: 'academies/',
-        element: <Academies/>,
+        path: "academies/",
+        element: <Academies />,
         loader: academiesLoader,
       },
       {
-        path: 'contact/',
-        element: <Contact/>
+        path: "contact/",
+        element: <Contact />,
       },
       {
-        path: 'about/',
-        element: <About/>
+        path: "about/",
+        element: <About />,
       },
       {
-        path: 'profile/',
+        path: "profile/",
         element: <Profile />,
       },
       {
-        path: 'login/',
-        element: <Login />
+        path: "login/",
+        element: <Login />,
       },
       {
-        path: 'register/',
+        path: "register/",
         element: <Register />,
       },
       {
-        path: 'academy/:academy_slug/',
+        path: "academy/:academy_slug/",
         element: <Academy />,
-        errorElement: <Error/>,
+        errorElement: <Error />,
         loader: academyLoader,
         shouldRevalidate: () => false,
         children: [
           {
-            index:true,
-            element: <AcademyHome/>
+            index: true,
+            element: <AcademyHome />,
+            shouldRevalidate: () => false,
           },
           {
-            path: 'joinus/',
-            element: <JoinUs/>
+            path: "joinus/",
+            element: <JoinUs />,
           },
           {
-            path: 'learn/',
+            path: "learn/",
             element: <Learn />,
             children: [
               {
-                path: 'courses/',
-                element: 'courses'
+                path: "courses/",
+                element: "courses",
               },
               {
-                path: 'questions/',
-                element: 'questions'
+                path: "questions/",
+                element: "questions",
               },
               {
-                path: 'quizes/',
-                element: 'quizes'
-              }
-            ]
-          }
-        ]
+                path: "quizes/",
+                element: "quizes",
+              },
+            ],
+          },
+        ],
       },
-    ]
-    
-  }
-  
-])
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router}/>
-)
+    ],
+  },
+]);
+ReactDOM.createRoot(document.getElementById("root")).render(<RouterProvider router={router} />);

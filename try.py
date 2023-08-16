@@ -23,4 +23,4 @@
 # print(my_deep_thought_instance.age)
 # print(my_deep_thought_instance.age)
 # print(my_deep_thought_instance.age)
-print(min(3,10))
+print(not 0)

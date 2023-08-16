@@ -1,6 +1,6 @@
 from .models import (
-    Profile, Academy, AcademyDetail, AcademyFeature, PathInfo,
-    Batch, Level, Phase, Subject, Lesson, AcademyType
+    Profile, Academy, AcademyDetails, AcademyFeature, PathInfo,
+    Batch, Level, Phase, Subject, Lesson, BatchLink,AcademyType
 )
 from rest_framework import serializers
 from rest_framework.fields import empty
@@ -16,21 +16,24 @@ class AcademyTypeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class AcademySerializer(serializers.ModelSerializer):
-    academy_type = serializers.StringRelatedField()
+    # academy_type = serializers.StringRelatedField()
     class Meta:
         model = Academy
-        exclude = ('admins', 'dashboard_password')
+        exclude = ('admins', 'dashboard_password', 'academy_type')
 
-class AcademyDetailSerializer(serializers.ModelSerializer):
+class AcademyDetailsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AcademyDetail
+        model = AcademyDetails
         fields = "__all__"
 
 class BatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Batch
         fields = ('id', 'number', 'academy_id')
-    
+class BatchLinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BatchLink
+        fields = '__all__'
 class LevelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Level
@@ -59,8 +62,7 @@ class LessonSerializer(serializers.ModelSerializer):
     subject = SubjectSerializer()
     class Meta:
         model = Lesson
-        fields = "__all__"
-
+        fields = ("id", "number", "title", "exercise_count", "url", "date", "subject", "type_id", "type")
 class FeatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = AcademyFeature

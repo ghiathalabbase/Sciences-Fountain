@@ -8,11 +8,7 @@
 .page-num:not(.active):hover {
     color: #00999d;
 }
-.page-arrow:hover, .page-text:hover {
+.page-arrow:hover {
     background-color: #00999d !important;
     color: white;
-}
-.page-num-text {
-    background-color: #dedede;
-    border-radius: 3px;
 }

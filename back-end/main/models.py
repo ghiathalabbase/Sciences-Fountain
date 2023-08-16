@@ -46,13 +46,13 @@ class Academy(models.Model):
     academy_type = models.ForeignKey(AcademyType, on_delete=models.SET_DEFAULT, default=1, related_name="academies")
     allow_comments = models.BooleanField(default = False)
     created_at = models.DateTimeField(auto_now_add=True)
-    admins = models.ManyToManyField(User, through="AcademyAdmin", related_name="admin_in")
+    admins = models.ManyToManyField(User, through="AcademyAdmin", related_name="admins")
     rate = models.FloatField(default=0, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
-    
+
     # def __str__(self) -> str:
     #     return self.name
 
-class AcademyDetail(models.Model):
+class AcademyDetails(models.Model):
     title = models.CharField(max_length = 80)
     description = models.TextField()
     about = models.TextField()
@@ -63,7 +63,7 @@ class AcademyDetail(models.Model):
 
 class AcademyFeature(models.Model):
     feature = models.CharField(max_length = 180)
-    academy_detail = models.ForeignKey(AcademyDetail, on_delete=models.CASCADE)
+    academy_details = models.ForeignKey(AcademyDetails, on_delete=models.CASCADE)
 
     # def __str__(self) -> str:
     #     return self.academy_detail.__str__()
@@ -165,7 +165,16 @@ class Lesson(models.Model):
     url = models.URLField(null=True)
     date = models.DateField()
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-
+    
+    file_types = {
+        1: 'pdf',
+        2: 'video',
+        3: 'audio'
+    }
+    type_id = models.IntegerField()
+    @property
+    def type(self):
+        return self.file_types[self.type_id]
     # def __str__(self) -> str:
     #     return self.title + " | " + self.subject.__str__()
 
